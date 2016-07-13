@@ -191,13 +191,4 @@
         android:layout_below="@+id/textView10"
         android:layout_alignStart="@+id/textView7" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Menu"
-        android:id="@+id/textView11"
-        android:layout_above="@+id/imageView"
-        android:layout_centerHorizontal="true" />
-
 </RelativeLayout>
