@@ -1,5 +1,7 @@
 package br.com.cardtracker;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -33,29 +35,54 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
         btnConfirma = (Button) findViewById(R.id.btnConfirma);
 
         btnLocais.setOnClickListener(this);
+
         btnInfos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                AlertDialog.Builder dig1 = new AlertDialog.Builder(Menu.this);
+                Intent it1 = new Intent(Menu.this, Info.class);
+                //iti.putExtra("Agencia ",editTextAgencia.getText().toString());
+                //iti.putExtra("Conta ",editTextConta.getText().toString());
+                dig1.setMessage("Consultando Informações...");
+                dig1.show();
+                startActivity(it1);
+
             }
         }); // End of Infos
+
         btnCompra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                AlertDialog.Builder dig2 = new AlertDialog.Builder(Menu.this);
+                Intent it2 = new Intent(Menu.this, Compra.class);
+                dig2.setMessage("Criando Compra...");
+                dig2.show();
+                startActivity(it2);
             }
         }); // End of Compra
-        btnConfirma.setOnClickListener(new View.OnClickListener() {
+
+       btnConfirma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                AlertDialog.Builder dig3 = new AlertDialog.Builder(Menu.this);
+                Intent it3 = new Intent(Menu.this, Confirm.class);
+                dig3.setMessage("Confirmação de Compra...");
+                dig3.show();
+                startActivity(it3);
             }
         }); // End of Confirma
     }
 
     @Override
     public void onClick(View v) {
-
+        AlertDialog.Builder dig = new AlertDialog.Builder(Menu.this);
+        Intent it = new Intent(this, Local.class);
+        dig.setMessage("Localizando Compras...");
+        dig.show();
+        startActivity(it);
     }
 
 }

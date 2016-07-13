@@ -76,7 +76,8 @@
         android:id="@+id/btnConfirma"
         android:layout_alignBottom="@+id/btnCompra"
         android:layout_alignParentEnd="true"
-        android:layout_alignStart="@+id/imageView4" />
+        android:layout_alignStart="@+id/imageView4"
+        android:onClick="goToConfirma" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -87,7 +88,12 @@
         android:text="@string/Agencia"
         android:layout_below="@+id/textView6"
         android:layout_alignEnd="@+id/textView6"
-        android:layout_toEndOf="@+id/editText3" />
+        android:layout_toEndOf="@+id/editText3"
+        android:visibility="visible"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -125,9 +131,15 @@
         android:id="@+id/editText3"
         android:layout_alignTop="@+id/editTextAgencia"
         android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/btnCompra" />
+        android:layout_alignEnd="@+id/btnCompra"
+        android:visibility="visible"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
 
     <EditText
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="number"
@@ -135,7 +147,12 @@
         android:id="@+id/editTextConta"
         android:text="@string/Conta"
         android:layout_alignTop="@+id/editTextAgencia"
-        android:layout_toEndOf="@+id/editTextAgencia" />
+        android:layout_toEndOf="@+id/editTextAgencia"
+        android:visibility="visible"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
 
     <TextView
         android:layout_width="wrap_content"
