@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">CardTracker</string>
+    <string name="selecione_o_banco">Selecione o Banco</string>
+    <string name="btnEntrar">Entrar</string>
+    <string name="btnLocais">Locais</string>
+    <string name="btnInfos">Informações</string>
+    <string name="btnCompra">Efetuar Compra</string>
+    <string name="btnConfirma">Confirmação</string>
+    <string name="Agencia">1619-5</string>
+    <string name="Conta">3.4928-3</string>
+    <string name="Cartao">4004 1234 5678 9010</string>
+</resources>
