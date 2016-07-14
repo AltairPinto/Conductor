@@ -61,15 +61,16 @@
         android:layout_centerHorizontal="true" />
 
     <EditText
+        android:id="@+id/editText4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/editText4"
-        android:text="@string/Conta"
-        android:layout_alignTop="@+id/editText"
+        android:layout_alignRight="@+id/textView17"
         android:layout_alignStart="@+id/textView15"
-        android:layout_toStartOf="@+id/textView16" />
+        android:layout_alignTop="@+id/editText"
+        android:layout_toStartOf="@+id/textView16"
+        android:ems="10"
+        android:inputType="number"
+        android:text="@string/Conta" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -161,11 +162,13 @@
         android:text="@string/txtLimite" />
 
     <Button
+        android:id="@+id/btExtrato"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btExtrato"
-        android:id="@+id/btExtrato"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/textView17" />
+        android:layout_alignRight="@+id/textView17"
+        android:layout_alignStart="@+id/textView17"
+        android:layout_below="@+id/textView19"
+        android:layout_marginTop="19dp"
+        android:text="@string/btExtrato" />
 
 </RelativeLayout>

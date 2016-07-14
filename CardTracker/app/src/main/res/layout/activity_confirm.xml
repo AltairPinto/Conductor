@@ -51,10 +51,11 @@
         android:layout_height="wrap_content"
         android:inputType="date"
         android:ems="10"
-        android:id="@+id/editText7"
-        android:layout_below="@+id/textView21"
-        android:layout_alignEnd="@+id/editText8"
-        android:layout_alignStart="@+id/editText8" />
+        android:id="@+id/nDia"
+        android:text="@string/nDia"
+        android:layout_above="@+id/nValor"
+        android:layout_alignEnd="@+id/editText6"
+        android:layout_toEndOf="@+id/textView22" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -62,26 +63,8 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Dia"
         android:id="@+id/textView22"
-        android:layout_alignBottom="@+id/editText7"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="time"
-        android:ems="10"
-        android:id="@+id/editText8"
-        android:layout_below="@+id/editText7"
-        android:layout_alignEnd="@+id/editText10"
-        android:layout_toEndOf="@+id/textView25" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Hora"
-        android:id="@+id/textView23"
-        android:layout_alignBottom="@+id/editText8"
+        android:layout_alignEnd="@+id/textView25"
+        android:layout_alignTop="@+id/nDia"
         android:layout_alignParentStart="true" />
 
     <TextView
@@ -90,7 +73,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Valor (R$)"
         android:id="@+id/textView24"
-        android:layout_above="@+id/editText10"
+        android:layout_alignBottom="@+id/nValor"
         android:layout_alignParentStart="true" />
 
     <EditText
@@ -98,10 +81,11 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
-        android:id="@+id/editText9"
-        android:layout_above="@+id/editText10"
+        android:id="@+id/nValor"
+        android:layout_above="@+id/nStatus"
         android:layout_alignEnd="@+id/textView21"
-        android:layout_toEndOf="@+id/textView24" />
+        android:layout_toEndOf="@+id/textView24"
+        android:text="@string/nValor" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -115,9 +99,10 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText10"
+        android:id="@+id/nStatus"
         android:layout_alignBottom="@+id/textView25"
         android:layout_alignEnd="@+id/btnValidar"
-        android:layout_alignStart="@+id/editText9" />
+        android:layout_alignStart="@+id/nValor"
+        android:text="@string/nStatus" />
 
 </RelativeLayout>

@@ -28,8 +28,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-ads:9.2.0'
     compile 'com.google.android.gms:play-services-auth:9.2.0'
     compile 'com.google.android.gms:play-services-gcm:9.2.0'
-    compile files('src/main/java/lib/classes.jar')
     compile files('src/main/java/lib/sdc-api.jar')
-    compile files('src/main/java/lib/sdc-sdk-android-1.0.0.jar')
     compile files('src/main/java/lib/sdc-sdk-java-0.0.1.jar')
+    compile files('src/main/java/lib/sdc-sdk-android-1.0.0.jar')
 }

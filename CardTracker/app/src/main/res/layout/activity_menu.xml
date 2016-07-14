@@ -126,7 +126,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Conductor"
+        android:text="@string/nName"
         android:ems="10"
         android:id="@+id/editText3"
         android:layout_alignTop="@+id/editTextAgencia"
@@ -169,7 +169,7 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/Cartao"
-        android:text="@string/Cartao"
+        android:text="@string/nNumero"
         android:layout_below="@+id/textView9"
         android:layout_alignParentStart="true"
         android:layout_toStartOf="@+id/editTextConta" />

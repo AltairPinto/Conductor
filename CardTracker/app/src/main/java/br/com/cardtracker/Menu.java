@@ -27,7 +27,7 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
 
         editTextAgencia = (EditText) findViewById(R.id.Agencia);
         editTextConta = (EditText) findViewById(R.id.Conta);
-        Cartao = (EditText) findViewById(R.id.Cartao);
+        Cartao = (EditText) findViewById(R.id.nNumero);
 
         btnLocais = (Button) findViewById(R.id.btnLocais);
         btnInfos = (Button) findViewById(R.id.btnInfos);

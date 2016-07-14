@@ -1,12 +1,12 @@
 package br.com.cardtracker;
 
-import android.support.v7.app.AppCompatActivity;
-import android.app.*;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.*;
-import android.content.*;
+import android.widget.Button;
+import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
