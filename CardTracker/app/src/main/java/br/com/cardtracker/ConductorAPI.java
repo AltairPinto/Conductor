@@ -1,37 +1,36 @@
 package br.com.cardtracker;
 
-/**
- * Created by altai on 13/07/2016.
- */
-import java.util.*;
+import java.util.List;
+
 import br.com.conductor.sdc.api.v1.CartaoApi;
 import br.com.conductor.sdc.api.v1.ContaApi;
-import br.com.conductor.sdc.api.v1.invoker.ApiClient;
 import br.com.conductor.sdc.api.v1.invoker.ApiException;
-import br.com.conductor.sdc.api.v1.invoker.auth.ApiKeyAuth;
+import br.com.conductor.sdc.api.v1.invoker.ApiInvoker;
 import br.com.conductor.sdc.api.v1.model.Cartao;
 import br.com.conductor.sdc.api.v1.model.Conta;
 import br.com.conductor.sdc.api.v1.model.Extrato;
 import br.com.conductor.sdc.api.v1.model.Limite;
 
+/**
+ * Created by altai on 15/07/2016.
+ */
 public class ConductorAPI {
+
+    private static final String BASE_PATH = "https://api.conductor.com.br/sdc";
 
     public static void main(String[] args) throws ApiException {
 
         /**
-         * Configurando a api
-         */
-        ApiClient api = new ApiClient();
-        api.setBasePath("https://api.conductor.com.br/sdc");
-
-        /**
          * Setando o access_token e client_id de acesso. Você pode conseguir os seus se cadastrando em http://pierlabs.io
          */
-        ((ApiKeyAuth) api.getAuthentication("access_token")).setApiKey("ACCESS_TOKEN");
-        ((ApiKeyAuth) api.getAuthentication("client_id")).setApiKey("CLIENTE_ID");
+        ApiInvoker.getInstance().addDefaultHeader("access_token", "3BJU7WSdxYVy");
+        ApiInvoker.getInstance().addDefaultHeader("client_id", "VxUGXKTjnPCa");
 
-        CartaoApi cartaoApi = new CartaoApi(api);
-        ContaApi contaApi = new ContaApi(api);
+        CartaoApi cartaoApi = new CartaoApi();
+        cartaoApi.setBasePath(BASE_PATH);
+
+        ContaApi contaApi = new ContaApi();
+        contaApi.setBasePath(BASE_PATH);
 
         /**
          * Criando conta 01
@@ -66,13 +65,11 @@ public class ConductorAPI {
         System.out.println(limite);
 
         /**
-         * Imprimindo os extratos. Deverá aparecer duas transações:
-         * 1ª - Credito de 100.00
-         * 2ª - Débito de 0.10
+         * Imprimindo os extratos. Deverá aparecer duas transações: 1ª - Credito de 100.00 2ª - Débito de 0.10
          */
         List<Extrato> extratos = cartaoApi.extratosUsingPOST(conta1.getId(), cartao1.getId());
-        extratos.stream().forEach(e -> System.out.println(e));
-
+        //extratos.stream().forEach(e -> System.out.println(e));
+        System.out.println(extratos);
         /**
          * Criando o cartão 02 da conta 01
          */
@@ -85,7 +82,8 @@ public class ConductorAPI {
         /**
          * Consultando os cartões da conta 01. Deverá retorna dois cartões
          */
-        cartaoApi.getAllUsingGET(conta1.getId()).stream().forEach(c -> System.out.println(c));
+        //cartaoApi.getAllUsingGET(conta1.getId()).stream().forEach(c -> System.out.println(c));
+        System.out.println(cartaoApi.getAllUsingGET(conta1.getId()));
 
         /**
          * Transferindo 10.10 do cartão 1 para o cartão 2
@@ -103,5 +101,6 @@ public class ConductorAPI {
          */
         limite = cartaoApi.limiteUsingGET(conta1.getId(), cartao2.getId());
         System.out.println(limite);
+
     }
 }

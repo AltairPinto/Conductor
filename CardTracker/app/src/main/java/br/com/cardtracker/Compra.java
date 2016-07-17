@@ -41,9 +41,13 @@ public class Compra extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         AlertDialog.Builder dig = new AlertDialog.Builder(Compra.this);
-        Intent it = new Intent(this, Menu.class);
-        dig.setMessage("Acesse a aba de confirmação para validar a compra");
+        dig.setMessage("Confirme sua compra na aba de confirmação");
+        dig.setNeutralButton("Ok",null);
         dig.show();
+    }
+
+    public void onBackPressed(){
+        Intent it = new Intent(this, Menu.class);
         startActivity(it);
     }
 }

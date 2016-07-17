@@ -2,10 +2,11 @@ package br.com.cardtracker;
 
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.EditText;
 
 public class Menu extends AppCompatActivity implements View.OnClickListener {
 
@@ -25,8 +26,8 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        editTextAgencia = (EditText) findViewById(R.id.Agencia);
-        editTextConta = (EditText) findViewById(R.id.Conta);
+        editTextAgencia = (EditText) findViewById(R.id.nAgencia);
+        editTextConta = (EditText) findViewById(R.id.nConta);
         Cartao = (EditText) findViewById(R.id.nNumero);
 
         btnLocais = (Button) findViewById(R.id.btnLocais);
@@ -82,6 +83,13 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
         Intent it = new Intent(this, Local.class);
         dig.setMessage("Localizando Compras...");
         dig.show();
+        startActivity(it);
+    }
+    public void onBackPressed(){
+        AlertDialog.Builder dig = new AlertDialog.Builder(Menu.this);
+        dig.setMessage("Logout...");
+        dig.show();
+        Intent it = new Intent(this, MainActivity.class);
         startActivity(it);
     }
 

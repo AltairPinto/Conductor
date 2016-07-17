@@ -13,8 +13,11 @@ public class Confirm extends AppCompatActivity implements View.OnClickListener{
     private EditText nDia;
     private EditText nValor;
     private EditText nStatus;
+    private EditText nValidar;
 
     private Button btnValidar;
+
+    public String validar = "conductor";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +27,7 @@ public class Confirm extends AppCompatActivity implements View.OnClickListener{
         nDia = (EditText) findViewById(R.id.nDia);
         nValor = (EditText) findViewById(R.id.nValor);
         nStatus = (EditText) findViewById(R.id.nStatus);
+        nValidar = (EditText) findViewById(R.id.nValidar);
 
         btnValidar = (Button) findViewById(R.id.btnValidar);
         btnValidar.setOnClickListener(this);
@@ -31,10 +35,23 @@ public class Confirm extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        AlertDialog.Builder dig = new AlertDialog.Builder(Confirm.this);
+        final String nIntFromText = nValidar.getText().toString();
+        AlertDialog.Builder dig5 = new AlertDialog.Builder(Confirm.this);
+        if(validar.equals(nIntFromText)){
+        dig5.setTitle("Confirmação");
+        dig5.setMessage("\nCompra confirmada! Limite atual: R$89,90");
+        dig5.setNeutralButton("OK", null);
+            nValidar.setText(null);
+        dig5.show();}
+        else {
+            dig5.setMessage("Código inválido!");
+            dig5.setNegativeButton("Voltar", null);
+            nValidar.setText(null);
+            dig5.show();
+        }
+    }
+    public void onBackPressed(){
         Intent it = new Intent(this, Menu.class);
-        dig.setMessage("Compra confirmada! Limite atual: R$89,90");
-        dig.show();
         startActivity(it);
     }
 }

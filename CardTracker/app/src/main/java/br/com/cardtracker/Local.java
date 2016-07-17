@@ -1,5 +1,6 @@
 package br.com.cardtracker;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -42,5 +43,9 @@ public class Local extends FragmentActivity implements OnMapReadyCallback {
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
+    public void onBackPressed(){
+        Intent it = new Intent(this, Menu.class);
+        startActivity(it);
     }
 }

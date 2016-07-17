@@ -21,11 +21,12 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText6"
+        android:id="@+id/nValidar"
         android:layout_marginTop="53dp"
         android:layout_below="@+id/textView20"
         android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/textView20" />
+        android:layout_alignEnd="@+id/textView20"
+        android:text="@string/nValidar" />
 
     <Button
         android:layout_width="wrap_content"
@@ -33,7 +34,7 @@
         android:text="@string/btnValidar"
         android:id="@+id/btnValidar"
         android:layout_marginTop="53dp"
-        android:layout_below="@+id/editText6"
+        android:layout_below="@+id/nValidar"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -54,8 +55,13 @@
         android:id="@+id/nDia"
         android:text="@string/nDia"
         android:layout_above="@+id/nValor"
-        android:layout_alignEnd="@+id/editText6"
-        android:layout_toEndOf="@+id/textView22" />
+        android:layout_alignEnd="@+id/nValidar"
+        android:layout_toEndOf="@+id/textView22"
+        android:visibility="visible"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -85,7 +91,12 @@
         android:layout_above="@+id/nStatus"
         android:layout_alignEnd="@+id/textView21"
         android:layout_toEndOf="@+id/textView24"
-        android:text="@string/nValor" />
+        android:text="@string/nValor"
+        android:visibility="visible"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -103,6 +114,11 @@
         android:layout_alignBottom="@+id/textView25"
         android:layout_alignEnd="@+id/btnValidar"
         android:layout_alignStart="@+id/nValor"
-        android:text="@string/nStatus" />
+        android:text="@string/nStatus"
+        android:visibility="visible"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
 
 </RelativeLayout>

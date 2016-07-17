@@ -22,14 +22,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Conductor"
+        android:text="@string/nName"
         android:ems="10"
-        android:id="@+id/editText2"
+        android:id="@+id/nName"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView13"
         android:layout_alignParentLeft="true"
         android:layout_toStartOf="@+id/textView16"
-        android:layout_alignEnd="@+id/textView15" />
+        android:layout_alignEnd="@+id/textView15"
+        android:visibility="visible"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -37,7 +42,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Agência"
         android:id="@+id/textView12"
-        android:layout_below="@+id/editText2"
+        android:layout_below="@+id/nName"
         android:layout_alignParentLeft="true" />
 
     <EditText
@@ -49,7 +54,12 @@
         android:text="@string/Agencia"
         android:layout_below="@+id/textView12"
         android:layout_alignParentLeft="true"
-        android:layout_alignEnd="@+id/textView12" />
+        android:layout_alignEnd="@+id/textView12"
+        android:visibility="visible"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -57,7 +67,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Conta"
         android:id="@+id/textView15"
-        android:layout_below="@+id/editText2"
+        android:layout_below="@+id/nName"
         android:layout_centerHorizontal="true" />
 
     <EditText
@@ -70,7 +80,12 @@
         android:layout_toStartOf="@+id/textView16"
         android:ems="10"
         android:inputType="number"
-        android:text="@string/Conta" />
+        android:text="@string/Conta"
+        android:visibility="visible"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -88,11 +103,16 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/editText5"
-        android:text="@string/Cartao"
+        android:text="@string/nNumero"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView14"
         android:layout_alignParentLeft="true"
-        android:layout_alignEnd="@+id/textView15" />
+        android:layout_alignEnd="@+id/textView15"
+        android:visibility="visible"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
 
     <ImageView
         android:layout_width="wrap_content"
@@ -139,7 +159,12 @@
         android:id="@+id/txtLimiteTotal"
         android:layout_alignBottom="@+id/textView18"
         android:layout_toEndOf="@+id/textView18"
-        android:text="@string/txtLimiteTotal" />
+        android:text="@string/nLimite"
+        android:visibility="visible"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -156,10 +181,15 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
-        android:id="@+id/txtLimite"
+        android:id="@+id/txtLimiteAfter"
         android:layout_alignBottom="@+id/textView19"
         android:layout_toEndOf="@+id/textView19"
-        android:text="@string/txtLimite" />
+        android:text="@string/txtLimiteAfter"
+        android:visibility="visible"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
 
     <Button
         android:id="@+id/btExtrato"

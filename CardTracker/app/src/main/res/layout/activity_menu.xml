@@ -172,7 +172,12 @@
         android:text="@string/nNumero"
         android:layout_below="@+id/textView9"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/editTextConta" />
+        android:layout_toStartOf="@+id/editTextConta"
+        android:visibility="visible"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
 
     <TextView
         android:layout_width="wrap_content"

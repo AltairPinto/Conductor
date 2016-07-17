@@ -52,11 +52,16 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
-        android:id="@+id/Agencia"
+        android:id="@+id/nAgencia"
         android:layout_below="@+id/textView3"
-        android:text="@string/Agencia"
+        android:text="@string/nAgencia"
         android:layout_alignEnd="@+id/radioButton"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:visibility="visible"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -86,27 +91,28 @@
         android:layout_alignParentEnd="true" />
 
     <EditText
-        android:id="@+id/Conta"
+        android:id="@+id/nConta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/Agencia"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView4"
-        android:layout_marginTop="20dp"
-        android:layout_toLeftOf="@+id/imageView5"
         android:ems="10"
         android:inputType="number"
-        android:text="@string/Conta" />
+        android:layout_below="@+id/textView4"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/nAgencia"
+        android:visibility="visible"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:text="@string/nConta" />
 
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="50px"
         android:layout_height="50px"
-        android:layout_alignEnd="@+id/password"
-        android:layout_alignTop="@+id/radioButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="11dp"
-        android:src="@mipmap/ic_bb" />
+        android:src="@mipmap/ic_bb"
+        android:layout_below="@+id/textView2"
+        android:layout_alignEnd="@+id/password" />
 
     <TextView
         android:id="@+id/textView5"
@@ -114,7 +120,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/password"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/Conta"
+        android:layout_below="@+id/nConta"
         android:layout_marginTop="20dp"
         android:text="Digite a Senha"
         android:textAppearance="?android:attr/textAppearanceMedium" />

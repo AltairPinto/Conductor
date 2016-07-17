@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="br.com.cardtracker">
+    package="br.com.cardtracker"
+    >
     <manifest package="br.com.conductor.sdc.api.v1.invoker">
         <application />
     </manifest> <!--EDITEI-->
@@ -37,7 +38,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="AIzaSyAYjAKTCBLmGcZ4Mv2EufQtqUpE5aSiWqQ"/>
 
         <activity
             android:name=".Local"
