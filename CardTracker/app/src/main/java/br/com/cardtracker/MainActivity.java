@@ -9,22 +9,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
-import br.com.conductor.sdc.api.v1.model.Cartao;
-
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText password;
     private Button btnEntrar;
     private EditText nAgencia;
-    public EditText nConta;
+    private EditText nConta;
     private RadioButton radioButton;
-
     public int senha = 40028922;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        startActivity(new Intent(this, ConductorAPI.class));
 
         password = (EditText) findViewById(R.id.password);
         btnEntrar = (Button) findViewById(R.id.btnEntrar);
@@ -33,12 +31,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         radioButton = (RadioButton) findViewById(R.id.radioButton);
 
         btnEntrar.setOnClickListener(this);
+        //nConta.setText(conta.getNome());
     }
             @Override
             public void onClick (View v) {
                 final int nIntFromText = new Integer(password.getText().toString()).intValue();
-                Cartao cartao = new Cartao();
-                nConta.setText(cartao.getNome());
+                //nConta.setText();
                 AlertDialog.Builder dig = new AlertDialog.Builder(MainActivity.this);
                 System.out.println("SENHA: "+senha);
                 System.out.println("PASSWORD: "+password.getText());
