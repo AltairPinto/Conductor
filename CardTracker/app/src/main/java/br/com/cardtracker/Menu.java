@@ -3,41 +3,69 @@ package br.com.cardtracker;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+
+import br.com.conductor.sdc.api.v1.CartaoApi;
+import br.com.conductor.sdc.api.v1.ContaApi;
+import br.com.conductor.sdc.api.v1.model.Cartao;
+import br.com.conductor.sdc.api.v1.model.Conta;
 
 public class Menu extends AppCompatActivity implements View.OnClickListener {
 
     // Data of user
-    private EditText editTextAgencia;
-    private EditText editTextConta;
+    //private EditText editTextAgencia;
+    private EditText nConta;
     private EditText Cartao;
 
     // Buttons
-    private Button btnLocais;
-    private Button btnInfos;
-    private Button btnCompra;
-    private Button btnConfirma;
+    private ImageButton btnLocal;
+    private ImageButton btnConta;
+    private ImageButton btnCompra;
+    private ImageButton btnCartoes;
+    private ImageButton btnLock;
+    private ImageButton btnTransferencia;
+
+
+    // Acesso API
+    public String access_token = "3BJU7WSdxYVy";
+    public String client_id = "VxUGXKTjnPCa";
+    private static final String BASE_PATH = "https://api.conductor.com.br/sdc";
+    public MainActivity mainActivity = new MainActivity();
+    // Atributos API
+    public ContaApi contaApi = mainActivity.getContaApiInfos(access_token,client_id,BASE_PATH);
+    public CartaoApi cartaoApi = mainActivity.getCartaoApiInfos(access_token,client_id,BASE_PATH);
+    public Conta conta1 = mainActivity.getConta1Infos();
+    public Cartao cartao1 = mainActivity.getCartao1Infos();
+    public Cartao cartao2 = mainActivity.getCartao2Infos();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        editTextAgencia = (EditText) findViewById(R.id.nAgencia);
-        editTextConta = (EditText) findViewById(R.id.nConta);
-        Cartao = (EditText) findViewById(R.id.nNumero);
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
 
-        btnLocais = (Button) findViewById(R.id.btnLocais);
-        btnInfos = (Button) findViewById(R.id.btnInfos);
-        btnCompra = (Button) findViewById(R.id.btnCompra);
-        btnConfirma = (Button) findViewById(R.id.btnConfirma);
+        nConta = (EditText) findViewById(R.id.nConta);
 
-        btnLocais.setOnClickListener(this);
+        btnLocal = (ImageButton) findViewById(R.id.btnLocal);
+        btnConta = (ImageButton) findViewById(R.id.btnConta);
+        btnCompra = (ImageButton) findViewById(R.id.btnCompra);
+        btnCartoes = (ImageButton) findViewById(R.id.btnCartoes);
+        btnLock = (ImageButton) findViewById(R.id.btnLock);
+        btnTransferencia = (ImageButton) findViewById(R.id.btnTransferencia);
 
-        btnInfos.setOnClickListener(new View.OnClickListener() {
+        nConta.setText(conta1.getNome());
+
+        btnLocal.setOnClickListener(this);
+
+        btnConta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -64,7 +92,7 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
             }
         }); // End of Compra
 
-       btnConfirma.setOnClickListener(new View.OnClickListener() {
+       btnCartoes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

@@ -141,7 +141,7 @@
         android:inputType="textPersonName"
         android:text="@string/nSenha"
         android:ems="10"
-        android:id="@+id/nSenha"
+        android:id="@+id/password"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@+id/textView30"
         android:visibility="visible"
@@ -156,7 +156,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Valor"
         android:id="@+id/textView32"
-        android:layout_below="@+id/nSenha"
+        android:layout_below="@+id/password"
         android:layout_alignParentStart="true"
         android:layout_marginTop="44dp" />
 
@@ -176,7 +176,7 @@
         android:text="Limite Disponível (R$)"
         android:id="@+id/textView34"
         android:layout_alignTop="@+id/textView32"
-        android:layout_alignEnd="@+id/nSenha" />
+        android:layout_alignEnd="@+id/password" />
 
     <EditText
         android:layout_width="wrap_content"
