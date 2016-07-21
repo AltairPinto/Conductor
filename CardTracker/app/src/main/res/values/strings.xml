@@ -6,20 +6,20 @@
     <string name="btnCompra">Comprar</string>
     <string name="btnConfirma">Confirmação</string>
     <string name="btnLock">Bloqueio</string>
-    <string name="btnTransferencia">Transferência</string>
+    <string name="btnTransferencia">Transf.</string>
     <string name="title_activity_infos">Infos</string>
     <string name="action_settings">Settings</string>
     <string name="txtLimite"/>
     <string name="txtLimiteTotal"/>
-    <string name="btExtrato">Consultar Extrato</string>
+    <string name="btnExtrato">Consultar Extrato</string>
     <string name="btnValidar">Validar</string>
     <string name="title_activity_local">Map</string>
-    <string name="nLimite">99.9</string>
-    <string name="nConfirmacao">Confirmação</string>
-    <string name="nCVV">cvv</string>
-    <string name="nID">103</string>
-    <string name="nName">NOME DO CARTAO</string>
-    <string name="nNumero">9999419940317767</string>
+    <string name="nLimite"></string>
+    <string name="nConfirmacao"></string>
+    <string name="nCVV"></string>
+    <string name="nID"></string>
+    <string name="nName"></string>
+    <string name="nNumero"></string>
     <string name="nSenha"></string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
@@ -114,11 +114,13 @@
     <string name="nValor"></string>
     <string name="nStatus"></string>
     <string name="txtLimiteAfter"></string>
-    <string name="nValidar" />
-    <string name="nConta" />
-    <string name="nAgencia" />
-    <string name="nNome" />
+    <string name="nValidar"/>
+    <string name="nConta"/>
+    <string name="nNome"/>
     <string name="btnCartoes">Cartões</string>
     <string name="btnConta">Conta</string>
-
+    <string name="btnAlterarConta">Alterar Conta</string>
+    <string name="btnDeletarConta">Deletar Conta</string>
+    <string name="nContaNovo" />
+    <string name="nIDNovo" />
 </resources>

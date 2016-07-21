@@ -29,7 +29,7 @@ public class Compra extends AppCompatActivity implements View.OnClickListener {
 
         nCVV = (EditText) findViewById(R.id.nCVV);
         nID = (EditText) findViewById(R.id.nID);
-        nNome = (EditText) findViewById(R.id.nName);
+        nNome = (EditText) findViewById(R.id.nConta);
         nNumero = (EditText) findViewById(R.id.nNumero);
         nSenha = (EditText) findViewById(R.id.password);
         nLimite = (EditText) findViewById(R.id.nLimite);

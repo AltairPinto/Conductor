@@ -25,8 +25,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Menu" />
-        <activity android:name=".Info" />
-        <activity android:name=".Confirm" />
+        <activity android:name=".Contas" />
+        <activity android:name=".Cartoes" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

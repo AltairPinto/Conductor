@@ -25,6 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
+        android:textAlignment="center"
         android:ems="10"
         android:id="@+id/nConta"
         android:text="@string/nConta"
@@ -42,7 +43,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/nConta">
+        android:layout_marginTop="100px"
+        android:layout_below="@+id/nConta"
+        android:id="@+id/scrollView">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -51,17 +54,17 @@
 
 
         <ImageButton
-            android:layout_width="230px"
-            android:layout_height="230px"
+            android:layout_width="180px"
+            android:layout_height="200px"
             android:id="@+id/btnLocal"
             android:background="@drawable/local"
-            android:layout_marginLeft="40px"
-            android:layout_marginTop="50px"
+            android:layout_marginLeft="20px"
+            android:layout_marginTop="100px"
             />
 
         <TextView
-            android:layout_width="230px"
-            android:layout_height="55px"
+            android:layout_width="180px"
+            android:layout_height="60px"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textAlignment="center"
             android:text="@string/btnLocal"
@@ -69,23 +72,23 @@
             android:textColorHighlight="@color/colorPrimaryDark"
             android:textColor="@color/common_google_signin_btn_text_dark"
             android:layout_alignTop="@+id/btnLocal"
-            android:layout_marginLeft="40px"
-            android:layout_marginTop="180px"
+            android:layout_marginLeft="20px"
+            android:layout_marginTop="150px"
             android:background="@drawable/icon"
          />
 
     <ImageButton
-    android:layout_width="230px"
-    android:layout_height="230px"
+    android:layout_width="180px"
+    android:layout_height="200px"
     android:id="@+id/btnCompra"
     android:background="@drawable/compra"
         android:layout_alignTop="@+id/Local"
-        android:layout_marginLeft="40px"
-        android:layout_marginTop="140px" />
+        android:layout_marginLeft="20px"
+        android:layout_marginTop="180px" />
 
         <TextView
-            android:layout_width="230px"
-            android:layout_height="55px"
+            android:layout_width="180px"
+            android:layout_height="60px"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textAlignment="center"
             android:text="@string/btnCompra"
@@ -93,22 +96,23 @@
             android:textColorHighlight="@color/colorPrimaryDark"
             android:textColor="@color/common_google_signin_btn_text_dark"
             android:layout_alignTop="@+id/btnCompra"
-            android:layout_marginLeft="40px"
-            android:layout_marginTop="180px"
+            android:layout_marginLeft="20px"
+            android:layout_marginTop="150px"
             android:background="@drawable/icon"
             />
 
         <ImageButton
-            android:layout_width="230px"
-            android:layout_height="230px"
+            android:layout_width="180px"
+            android:layout_height="200px"
             android:id="@+id/btnLock"
-            android:layout_alignTop="@+id/Compra"
             android:background="@drawable/lock"
-            android:layout_marginLeft="40px"
-            android:layout_marginTop="140px" />
+            android:layout_alignTop="@+id/Cartoes"
+            android:layout_alignLeft="@+id/btnTransferencia"
+            android:layout_marginLeft="220px"
+            android:layout_marginTop="180px" />
     <TextView
-        android:layout_width="230px"
-        android:layout_height="55px"
+        android:layout_width="180px"
+        android:layout_height="60px"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textAlignment="center"
         android:text="@string/btnLock"
@@ -116,24 +120,24 @@
         android:textColorHighlight="@color/colorPrimaryDark"
         android:textColor="@color/common_google_signin_btn_text_dark"
         android:layout_alignTop="@+id/btnLock"
-        android:layout_marginLeft="40px"
-        android:layout_marginTop="180px"
+        android:layout_alignLeft="@+id/Transferencia"
+        android:layout_marginLeft="220px"
+        android:layout_marginTop="150px"
         android:background="@drawable/icon" />
 
 
     <ImageButton
-        android:layout_width="230px"
-        android:layout_height="230px"
+        android:layout_width="180px"
+        android:layout_height="200px"
         android:id="@+id/btnCartoes"
         android:background="@drawable/cartao"
-        android:layout_alignTop="@+id/Conta"
-        android:layout_alignLeft="@+id/btnCompra"
-        android:layout_marginLeft="380px"
-        android:layout_marginTop="140px" />
+        android:layout_alignLeft="@+id/btnConta"
+        android:layout_marginLeft="220px"
+        android:layout_marginTop="100px" />
 
     <TextView
-        android:layout_width="230px"
-        android:layout_height="55px"
+        android:layout_width="180px"
+        android:layout_height="60px"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textAlignment="center"
         android:textColorHighlight="@color/colorPrimaryDark"
@@ -141,23 +145,24 @@
         android:text="@string/btnCartoes"
         android:id="@+id/Cartoes"
         android:layout_alignTop="@+id/btnCartoes"
-        android:layout_alignLeft="@+id/btnCompra"
-        android:layout_marginLeft="380px"
-        android:layout_marginTop="180px"
+        android:layout_alignLeft="@+id/btnConta"
+        android:layout_marginLeft="220px"
+        android:layout_marginTop="150px"
         android:background="@drawable/icon"/>
 
         <ImageButton
-            android:layout_width="230px"
-            android:layout_height="230px"
+            android:layout_width="180px"
+            android:layout_height="200px"
             android:id="@+id/btnTransferencia"
             android:background="@drawable/transferencia"
-            android:layout_alignTop="@+id/Cartoes"
-            android:layout_marginLeft="380px"
-            android:layout_marginTop="140px" />
+            android:layout_alignTop="@+id/Conta"
+            android:layout_alignLeft="@+id/btnCompra"
+            android:layout_marginLeft="220px"
+            android:layout_marginTop="180px" />
 
         <TextView
-            android:layout_width="230px"
-            android:layout_height="55px"
+            android:layout_width="180px"
+            android:layout_height="60px"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textAlignment="center"
             android:textColorHighlight="@color/colorPrimaryDark"
@@ -165,23 +170,24 @@
             android:text="@string/btnTransferencia"
             android:id="@+id/Transferencia"
             android:layout_alignTop="@+id/btnTransferencia"
-            android:layout_marginLeft="380px"
-            android:layout_marginTop="180px"
+            android:layout_alignLeft="@+id/btnCompra"
+            android:layout_marginLeft="220px"
+            android:layout_marginTop="150px"
             android:background="@drawable/icon"/>
 
     <ImageButton
-    android:layout_width="230px"
-    android:layout_height="230px"
+    android:layout_width="180px"
+    android:layout_height="200px"
     android:id="@+id/btnConta"
         android:layout_alignLeft="@+id/btnLocal"
-        android:layout_marginLeft="380px"
-        android:layout_marginTop="50px"
+        android:layout_marginLeft="220px"
+        android:layout_marginTop="100px"
         android:background="@drawable/limite"
         />
 
     <TextView
-        android:layout_width="230px"
-        android:layout_height="55px"
+        android:layout_width="180px"
+        android:layout_height="60px"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textAlignment="center"
         android:textColorHighlight="@color/colorPrimaryDark"
@@ -190,13 +196,25 @@
         android:id="@+id/Conta"
         android:layout_alignTop="@+id/btnConta"
         android:layout_alignLeft="@+id/btnLocal"
-        android:layout_marginLeft="380px"
-        android:layout_marginTop="180px"
+        android:layout_marginLeft="220px"
+        android:layout_marginTop="150px"
         android:background="@drawable/icon"
          />
 
 
     </RelativeLayout>
     </ScrollView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Opções"
+        android:id="@+id/textView6"
+        android:layout_alignTop="@+id/nConta"
+        android:layout_marginTop="120px"
+        android:layout_centerHorizontal="true"
+        android:textColorHighlight="@color/colorPrimaryDark"
+        android:textColor="@color/common_google_signin_btn_text_dark"/>
 
 </RelativeLayout>
