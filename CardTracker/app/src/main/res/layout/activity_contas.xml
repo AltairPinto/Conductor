@@ -101,7 +101,7 @@
         android:background="@drawable/icon"
         android:layout_marginTop="850px"
         android:layout_marginLeft="400px"
-/>
+    />
 
     <TextView
         android:layout_width="wrap_content"
@@ -135,6 +135,18 @@
         android:textColorHighlight="@color/colorPrimaryDark"
         android:textColor="@color/common_google_signin_btn_text_dark"
         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="(Caso altere o ID, criará uma Conta)"
+        android:id="@+id/textView20"
+        android:layout_marginTop="690px"
+        android:layout_marginLeft="200px"
+        android:layout_alignLeft="@+id/textView10"
+        android:textColorHighlight="@color/colorPrimaryDark"
+        android:textColor="@color/common_google_signin_btn_text_dark"/>
 
     <EditText
         android:layout_width="wrap_content"

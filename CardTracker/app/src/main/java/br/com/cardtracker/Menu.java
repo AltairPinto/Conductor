@@ -3,6 +3,7 @@ package br.com.cardtracker;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
@@ -15,7 +16,7 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
     // Data of user
     //private EditText editTextAgencia;
     private EditText nConta;
-    private EditText Cartao;
+    private EditText nID;
 
     // Buttons
     private ImageButton btnLocal;
@@ -29,6 +30,7 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
     // Acesso API
     public runAPI runAPI = new runAPI();
     // Atributos API
+    //public ContaApi contaApi = runAPI.getContaApiInfos("3BJU7WSdxYVy","VxUGXKTjnPCa","https://api.conductor.com.br/sdc");
     public Conta conta1 = runAPI.getConta1Infos();
 
     @Override
@@ -36,7 +38,13 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        } //Thread não dar conflito
+
         nConta = (EditText) findViewById(R.id.nConta);
+        nID = (EditText) findViewById(R.id.nID);
 
         btnLocal = (ImageButton) findViewById(R.id.btnLocal);
         btnConta = (ImageButton) findViewById(R.id.btnConta);
@@ -45,7 +53,10 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
         btnLock = (ImageButton) findViewById(R.id.btnLock);
         btnTransferencia = (ImageButton) findViewById(R.id.btnTransferencia);
 
+        System.out.println("Conta Nome no Menu: "+conta1.getNome());
+        System.out.println("Conta ID no Menu: "+conta1.getId());
         nConta.setText(conta1.getNome());
+        nID.setText(conta1.getId().toString());
 
         btnLocal.setOnClickListener(this);
 

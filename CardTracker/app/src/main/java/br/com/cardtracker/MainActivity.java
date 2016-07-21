@@ -3,6 +3,7 @@ package br.com.cardtracker;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -17,11 +18,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText nConta;
     public int senha = 40028922;
 
-    // Acesso API
-    public String access_token = "3BJU7WSdxYVy";
-    public String client_id = "VxUGXKTjnPCa";
-    private static final String BASE_PATH = "https://api.conductor.com.br/sdc";
-
     // Atributos API
     public runAPI runAPI = new runAPI();
     public Conta conta1 = runAPI.getConta1Infos();
@@ -30,6 +26,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        } //Thread não dar conflito
 
         password = (EditText) findViewById(R.id.password);
         btnEntrar = (Button) findViewById(R.id.btnEntrar);
@@ -46,10 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         AlertDialog.Builder dig = new AlertDialog.Builder(MainActivity.this);
         System.out.println("SENHA: " + senha);
         System.out.println("PASSWORD: " + password.getText());
-        System.out.println("nConta: " + this.nConta.getText());
-        System.out.println("Conta ID: "+conta1.getId());
         System.out.println("Conta 1: "+conta1);
-        System.out.println("this.conta1: "+this.conta1);
         try {
             final int nIntFromText = new Integer(password.getText().toString()).intValue();
             if (senha == nIntFromText) {

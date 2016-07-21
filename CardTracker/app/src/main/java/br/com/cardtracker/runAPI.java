@@ -73,6 +73,7 @@ public class runAPI extends AppCompatActivity {
         cartao1.setSenha("123123098asd@");
         cartao1.setCvv("cvv");
         cartao1 = cartaoApi.createUsingPOST(conta1.getId(), cartao1);
+        cartaoApi.creditarUsingPUT(conta1.getId(), cartao1.getId(), 100.00);
         //cartao1Infos(cartao1.getCvv(),cartao1.getId(),cartao1.getNome(),cartao1.getNumero(),cartao1.getSenha(),cartao1.getStatus());
         setCartao1Info(cartao1);
         /**
