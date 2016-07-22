@@ -27,7 +27,7 @@ public class Compra extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compra);
 
-        nCVV = (EditText) findViewById(R.id.nCVV);
+        nCVV = (EditText) findViewById(R.id.nCVVNovo);
         nID = (EditText) findViewById(R.id.nID);
         nNome = (EditText) findViewById(R.id.nConta);
         nNumero = (EditText) findViewById(R.id.nNumero);

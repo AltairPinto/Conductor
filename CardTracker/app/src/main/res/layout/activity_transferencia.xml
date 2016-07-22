@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@drawable/bg"
-    tools:context=".Cartoes">
+    tools:context="br.com.cardtracker.Transferencia">
 
     <TextView
         android:layout_width="wrap_content"
@@ -70,7 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Cartões"
+        android:text="Transações"
         android:id="@+id/textView17"
         android:textColorHighlight="@color/colorPrimaryDark"
         android:textColor="@color/common_google_signin_btn_text_dark"
@@ -82,7 +82,7 @@
 
     <!--Scroll para as duas Áreas-->
 
-            <!--Scroll para os cartões-->
+    <!--Scroll para os cartões-->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="750px"
@@ -111,8 +111,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Selecione um Cartão para atualizar"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Selecione um Cartão para transacionar"
                 android:id="@+id/textView44"
                 android:textColorHighlight="@color/colorPrimaryDark"
                 android:textColor="@color/common_google_signin_btn_text_dark"
@@ -229,42 +229,30 @@
                 android:id="@+id/btnAlterarCartao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Alterar"
+                android:text="Alterar Cartão"
                 android:background="@drawable/icon"
                 android:textColorHighlight="@color/colorPrimaryDark"
                 android:textColor="@color/common_google_signin_btn_text_dark"
                 android:layout_marginLeft="50px"
+                android:layout_marginTop="20px"
                 android:layout_below="@+id/nSenhaNova"
-                android:layout_alignParentStart="true" />
+                android:layout_alignEnd="@+id/textView12" />
 
             <Button
                 android:id="@+id/btnCancelarCartao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cancelar"
+                android:text="Cancelar Cartão"
                 android:background="@drawable/icon"
                 android:textColorHighlight="@color/colorPrimaryDark"
                 android:textColor="@color/common_google_signin_btn_text_dark"
                 android:layout_alignBottom="@+id/btnAlterarCartao"
                 android:layout_alignLeft="@+id/btnAlterarCartao"
-                android:layout_marginLeft="220px"
-                android:layout_marginTop="40px"/>
-
-            <Button
-                android:id="@+id/btnExtratoCartao"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Extrato"
-                android:background="@drawable/icon"
-                android:textColorHighlight="@color/colorPrimaryDark"
-                android:textColor="@color/common_google_signin_btn_text_dark"
-                android:layout_alignBottom="@+id/btnAlterarCartao"
-                android:layout_alignLeft="@+id/btnCancelarCartao"
-                android:layout_marginLeft="210px"
+                android:layout_marginLeft="350px"
                 android:layout_marginTop="40px"/>
 
         </RelativeLayout>
-                </ScrollView>
+    </ScrollView>
 
 
 

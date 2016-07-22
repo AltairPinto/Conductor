@@ -9,8 +9,8 @@
     <string name="btnTransferencia">Transf.</string>
     <string name="title_activity_infos">Infos</string>
     <string name="action_settings">Settings</string>
-    <string name="txtLimite"/>
-    <string name="txtLimiteTotal"/>
+    <string name="txtLimite" />
+    <string name="txtLimiteTotal" />
     <string name="btnExtrato">Consultar Extrato</string>
     <string name="btnValidar">Validar</string>
     <string name="title_activity_local">Map</string>
@@ -114,13 +114,17 @@
     <string name="nValor"></string>
     <string name="nStatus"></string>
     <string name="txtLimiteAfter"></string>
-    <string name="nValidar"/>
-    <string name="nConta"/>
-    <string name="nNome"/>
+    <string name="nValidar" />
+    <string name="nConta" />
+    <string name="nNome" />
     <string name="btnCartoes">Cartões</string>
     <string name="btnConta">Conta</string>
     <string name="btnAlterarConta">Alterar Conta</string>
     <string name="btnDeletarConta">Deletar Conta</string>
     <string name="nContaNovo" />
     <string name="nIDNovo" />
+    <string name="nNomeNovo" />
+    <string name="nCVVNovo" />
+    <string name="nNumeroNovo" />
+    <string name="nSenhaNova" />
 </resources>

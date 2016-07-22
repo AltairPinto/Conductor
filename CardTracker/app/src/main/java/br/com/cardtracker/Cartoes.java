@@ -3,10 +3,14 @@ package br.com.cardtracker;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.List;
@@ -21,10 +25,18 @@ public class Cartoes extends AppCompatActivity implements View.OnClickListener{
 
     private EditText nID;
     private EditText nConta;
-    private EditText nIDNovo;
+    private Spinner nIDNovo;
     private TextView Cards;
+
     private Button btnAlterarCartao;
     private Button btnCancelarCartao;
+    private Button btnExtratoCartao;
+
+    private EditText nCVVNovo;
+    private EditText nNomeNovo;
+    private EditText nNumeroNovo;
+    private EditText nSenhaNova;
+
 
     // Atributos API
     public runAPI runAPI = new runAPI();
@@ -33,6 +45,8 @@ public class Cartoes extends AppCompatActivity implements View.OnClickListener{
     public Conta conta1 = runAPI.getConta1Infos();
     public Cartao cartao1 = runAPI.getCartao1Infos();
     public Cartao cartao2 = runAPI.getCartao2Infos();
+
+    public String selectID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +58,20 @@ public class Cartoes extends AppCompatActivity implements View.OnClickListener{
             StrictMode.setThreadPolicy(policy);
         } //Thread não dar conflito
 
+        Cards = (TextView) findViewById(R.id.Cards); // Campo para jogar os cartões existentes
+
         nConta = (EditText) findViewById(R.id.nConta);
         nID = (EditText) findViewById(R.id.nID);
-        nIDNovo = (EditText) findViewById(R.id.nIDNovo);
+        nCVVNovo = (EditText) findViewById(R.id.nCVVNovo);
+        nNomeNovo = (EditText) findViewById(R.id.nNomeNovo);
+        nNumeroNovo = (EditText) findViewById(R.id.nNumeroNovo);
+        nSenhaNova = (EditText) findViewById(R.id.nSenhaNova);
 
-        Cards = (TextView) findViewById(R.id.Cards); // Campo para jogar os cartões existentes
+        nIDNovo = (Spinner) findViewById(R.id.nIDNovo);
 
         btnAlterarCartao = (Button) findViewById(R.id.btnAlterarCartao);
         btnCancelarCartao = (Button) findViewById(R.id.btnCancelarCartao);
-        btnCancelarCartao.setOnClickListener(this);
+        btnExtratoCartao = (Button) findViewById(R.id.btnExtratoCartao);
 
         nConta.setText(conta1.getNome());
         nID.setText(conta1.getId().toString());
@@ -61,34 +80,113 @@ public class Cartoes extends AppCompatActivity implements View.OnClickListener{
             contaApi.getOneUsingGET1(conta1.getId()); // Pega os dados da conta
             cartaoApi.getAllUsingGET(conta1.getId()); // Pega os cartões da conta
 
-            List<Cartao> getAPIFromText = cartaoApi.getAllUsingGET(conta1.getId());
-
-            System.out.println("Get da Conta em Cartoes: "+contaApi.getOneUsingGET1(conta1.getId()));
-            System.out.println("Get da Cartao em Cartoes: "+cartaoApi.getAllUsingGET(conta1.getId()));
+            List<Cartao> getAPIFromText = cartaoApi.getAllUsingGET(conta1.getId()); // Pegar todos os cartões da conta
 
             Cards.setText(getAPIFromText.toString());
         } catch (ApiException e) {
             System.out.println("Deu pau em Cartoes "+e);
         }
+        // Criando o Spinner para IDs
+        ArrayAdapter<Long> arrayAdapter = new ArrayAdapter<Long>(this,android.R.layout.simple_spinner_item);
+        final ArrayAdapter<Long> spinnerArrayAdapter = arrayAdapter;
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        nIDNovo.setAdapter(spinnerArrayAdapter);
+        spinnerArrayAdapter.add(cartao1.getId());
+        spinnerArrayAdapter.add(cartao2.getId());
+
+        nIDNovo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            // Pegando ID a partir da posição selecionada
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectID = parent.getItemAtPosition(position).toString();
+                System.out.println("SelectedID inicial : "+selectID);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                spinnerArrayAdapter.add(null);
+            }
+        }); //Fim do Spinner
+
+        btnExtratoCartao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Long getLongFromText = new Long(selectID);
+                AlertDialog.Builder dig = new AlertDialog.Builder(Cartoes.this);
+                try {
+                    cartaoApi.extratosUsingPOST(conta1.getId(),getLongFromText);
+                    dig.setTitle("Extrato do Cartão ID "+getLongFromText);
+                    dig.setMessage("\n"+cartaoApi.extratosUsingPOST(conta1.getId(),getLongFromText));
+                    dig.setNeutralButton("OK", null);
+                    dig.show();
+                } catch (ApiException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+        btnAlterarCartao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Long getLongFromText = new Long(selectID);
+                AlertDialog.Builder dig = new AlertDialog.Builder(Cartoes.this);
+                System.out.println("Selected ID FINAL: "+selectID);
+
+                if (getLongFromText == cartao1.getId()) {
+                    cartao1.setCvv(nCVVNovo.getText().toString());
+                    cartao1.setNome(nNomeNovo.getText().toString());
+                    cartao1.setNumero(nNumeroNovo.getText().toString());
+                    cartao1.setSenha(nSenhaNova.getText().toString());
+                    try {
+                        cartaoApi.updateUsingPUT(conta1.getId(), cartao1);//id conta e objeto cartao}
+                        dig.setTitle("Confirmação");
+                        dig.setMessage("\nCartão de ID "+selectID+" alterado com sucesso!");
+                        dig.setNeutralButton("OK", null);
+                        dig.show();
+                    } catch (ApiException e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    cartao2.setCvv(nCVVNovo.getText().toString());
+                    cartao2.setNome(nNomeNovo.getText().toString());
+                    cartao2.setNumero(nNumeroNovo.getText().toString());
+                    cartao2.setSenha(nSenhaNova.getText().toString());
+                    try {
+                        cartaoApi.updateUsingPUT(conta1.getId(), cartao2);//id conta e objeto cartao}
+                        dig.setTitle("Confirmação");
+                        dig.setMessage("\nCartão de ID "+selectID+" alterado com sucesso!");
+                        dig.setNeutralButton("OK", null);
+                        dig.show();
+                    } catch (ApiException e) {
+                        e.printStackTrace();
+                    }
+                } //Fim do if/else
+            }// Fim do onClick
+        });
+        btnCancelarCartao.setOnClickListener(this); // Cancelamento do Cartão
     }
 
     @Override
     public void onClick(View v) {
-        /*final String nIntFromText = nValidar.getText().toString();
+        final Long getLongFromText = new Long(selectID);
         AlertDialog.Builder dig5 = new AlertDialog.Builder(Cartoes.this);
-        if(validar.equals(nIntFromText)){
-        dig5.setTitle("Confirmação");
-        dig5.setMessage("\nCompra confirmada! Limite atual: R$89,90");
-        dig5.setNeutralButton("OK", null);
-            nValidar.setText(null);
-        dig5.show();}
-        else {
-            dig5.setMessage("Código inválido!");
-            dig5.setNegativeButton("Voltar", null);
-            nValidar.setText(null);
-            dig5.show();
-        }*/
+
+            try {
+                cartaoApi.cancelarUsingDELETE(conta1.getId(),getLongFromText);
+                dig5.setTitle("Confirmação");
+                dig5.setMessage("\nCartão cancelado com sucesso");
+                dig5.setNeutralButton("OK", null);
+                dig5.show();
+            } catch (ApiException e) {
+                dig5.setTitle("Aviso");
+                dig5.setMessage("\nID não identificado, por favor, insira um ID válido");
+                dig5.setNeutralButton("Voltar", null);
+                dig5.show();
+            }
     }
+
     public void onBackPressed(){
         Intent it = new Intent(this, Menu.class);
         startActivity(it);

@@ -46,6 +46,7 @@
             android:name=".Local"
             android:label="@string/title_activity_local" />
         <activity android:name=".Compra" />
+        <activity android:name=".Transferencia"></activity>
     </application>
 
 </manifest>

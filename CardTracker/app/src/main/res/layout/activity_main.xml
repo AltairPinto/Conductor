@@ -64,12 +64,43 @@
         android:layout_alignParentStart="true" />
 
     <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ID"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/nConta"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="30dp"
+        android:textColorHighlight="@color/colorPrimaryDark"
+        android:textColor="@color/common_google_signin_btn_text_dark"
+        />
+
+    <EditText
+        android:layout_width="150px"
+        android:layout_height="wrap_content"
+        android:textColorHighlight="@color/colorPrimaryDark"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/nID"
+        android:text="@string/nID"
+        android:visibility="visible"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:layout_below="@+id/textView6"
+        android:layout_alignParentStart="true"
+        android:textColor="#D3D3D3"
+        />
+
+    <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Senha"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_below="@+id/nConta"
+        android:layout_below="@+id/nID"
         android:layout_alignParentStart="true"
         android:layout_marginTop="30dp"
         android:textColorHighlight="@color/colorPrimaryDark"
