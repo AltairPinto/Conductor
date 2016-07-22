@@ -112,6 +112,7 @@ public class Cartoes extends AppCompatActivity implements View.OnClickListener{
             @Override
             public void onClick(View v) {
                 final Long getLongFromText = new Long(selectID);
+                System.out.println("Selected ID PRA PEGAR "+getLongFromText);
                 AlertDialog.Builder dig = new AlertDialog.Builder(Cartoes.this);
                 try {
                     cartaoApi.extratosUsingPOST(conta1.getId(),getLongFromText);

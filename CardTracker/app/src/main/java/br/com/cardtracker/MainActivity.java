@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText password;
     private Button btnEntrar;
     private EditText nConta;
+    private EditText nID;
     public int senha = 40028922;
 
     // Atributos API
@@ -35,10 +36,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         password = (EditText) findViewById(R.id.password);
         btnEntrar = (Button) findViewById(R.id.btnEntrar);
         nConta = (EditText) findViewById(R.id.nConta);
+        nID = (EditText) findViewById(R.id.nID);
 
         btnEntrar.setOnClickListener(this);
 
         nConta.setText(conta1.getNome());
+        nID.setText(conta1.getId().toString());
     }
 
     @Override

@@ -70,15 +70,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Transações"
+        android:text="Transferência"
         android:id="@+id/textView17"
         android:textColorHighlight="@color/colorPrimaryDark"
         android:textColor="@color/common_google_signin_btn_text_dark"
         android:layout_marginTop="20dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/nConta"
-        android:layout_toStartOf="@+id/textView3" />
+        android:layout_below="@+id/nConta" />
 
     <!--Scroll para as duas Áreas-->
 
@@ -100,7 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/Cards"
+                android:id="@+id/Limites"
                 android:textColorHighlight="@color/colorPrimaryDark"
                 android:textColor="@color/common_google_signin_btn_text_dark"
                 android:layout_marginTop="10px"
@@ -112,13 +111,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Selecione um Cartão para transacionar"
+                android:text="Selecione os Cartões"
                 android:id="@+id/textView44"
                 android:textColorHighlight="@color/colorPrimaryDark"
                 android:textColor="@color/common_google_signin_btn_text_dark"
-                android:layout_below="@+id/Cards"
+                android:layout_below="@+id/Limites"
+                android:layout_toEndOf="@+id/textView4"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="ID da Origem"
+                android:id="@+id/textView444"
+                android:textColorHighlight="@color/colorPrimaryDark"
+                android:textColor="@color/common_google_signin_btn_text_dark"
+                android:layout_below="@+id/textView44"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="20px"/>
+                android:layout_marginTop="20px"
+                android:layout_marginLeft="20px"/>
 
             <Spinner
                 android:layout_width="200px"
@@ -126,130 +137,145 @@
                 android:inputType="number"
                 android:text="@string/nIDNovo"
                 android:ems="10"
-                android:id="@+id/nIDNovo"
-                android:layout_below="@+id/textView44"
+                android:id="@+id/nIDOrigem"
+                android:layout_below="@+id/textView444"
                 android:layout_alignParentStart="true"
                 android:layout_marginTop="20px"
+                android:layout_marginLeft="60px"
                 android:textColor="#D3D3D3"
                 android:textColorHighlight="@color/colorPrimaryDark"
-                android:spinnerMode="dropdown" />
+                android:spinnerMode="dropdown"
+                android:background="@drawable/icon"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="CVV"
+                android:text="ID do Destino"
+                android:id="@+id/textView555"
+                android:textColorHighlight="@color/colorPrimaryDark"
+                android:textColor="@color/common_google_signin_btn_text_dark"
+                android:layout_below="@+id/textView44"
+                android:layout_alignLeft="@+id/textView444"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="20px"
+                android:layout_marginLeft="390px"/>
+
+            <Spinner
+                android:layout_width="200px"
+                android:layout_height="80px"
+                android:inputType="number"
+                android:text="@string/nIDNovo"
+                android:ems="10"
+                android:id="@+id/nIDDestino"
+                android:layout_below="@+id/textView555"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="20px"
+                android:layout_marginLeft="400px"
+                android:layout_alignLeft="@+id/textView444"
+                android:textColor="#D3D3D3"
+                android:textColorHighlight="@color/colorPrimaryDark"
+                android:spinnerMode="dropdown"
+                android:background="@drawable/icon"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Valor (R$)"
                 android:id="@+id/textView4"
                 android:textColorHighlight="@color/colorPrimaryDark"
                 android:textColor="@color/common_google_signin_btn_text_dark"
-                android:layout_alignTop="@+id/nIDNovo"
-                android:layout_marginTop="100px"/>
+                android:layout_alignTop="@+id/nIDOrigem"
+                android:layout_marginTop="150px"
+                android:layout_marginLeft="20px"/>
 
             <EditText
-                android:layout_width="200px"
-                android:layout_height="70px"
-                android:inputType="text"
+                android:layout_width="220px"
+                android:layout_height="90px"
+                android:inputType="numberDecimal"
                 android:ems="10"
-                android:id="@+id/nCVVNovo"
+                android:id="@+id/nValor"
                 android:textColor="#D3D3D3"
                 android:layout_alignLeft="@+id/textView4"
-                android:text="@string/nCVVNovo"
+                android:text="@string/nValor"
                 android:layout_below="@+id/textView4" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Nome"
-                android:id="@+id/textView12"
-                android:textColorHighlight="@color/colorPrimaryDark"
-                android:textColor="@color/common_google_signin_btn_text_dark"
-                android:layout_alignTop="@+id/textView4"
-                android:layout_alignStart="@+id/nNomeNovo" />
-
             <EditText
                 android:layout_width="200px"
-                android:layout_height="70px"
-                android:inputType="text"
+                android:layout_height="90px"
+                android:inputType="textPassword"
                 android:ems="10"
-                android:id="@+id/nNomeNovo"
+                android:id="@+id/nConfirmacao"
                 android:textColor="#D3D3D3"
-                android:text="@string/nNomeNovo"
-                android:layout_alignEnd="@+id/textView44"
-                android:layout_toEndOf="@+id/nCVVNovo"
-                android:layout_below="@+id/textView12" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Número:"
-                android:id="@+id/textView14"
-                android:textColorHighlight="@color/colorPrimaryDark"
-                android:textColor="@color/common_google_signin_btn_text_dark"
-                android:layout_below="@+id/nNomeNovo"
+                android:text="@string/nConfirmacao"
+                android:layout_below="@+id/textView16"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="10px"/>
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="70px"
-                android:inputType="number"
-                android:ems="10"
-                android:id="@+id/nNumeroNovo"
-                android:text="@string/nNumeroNovo"
-                android:layout_alignParentStart="true"
-                android:layout_alignEnd="@+id/nNomeNovo"
-                android:layout_below="@+id/textView14" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Senha"
-                android:id="@+id/textView15"
-                android:textColorHighlight="@color/colorPrimaryDark"
-                android:textColor="@color/common_google_signin_btn_text_dark"
-                android:layout_below="@+id/nNumeroNovo"
-                android:layout_alignParentStart="true" />
-
-            <EditText
-                android:layout_width="200px"
-                android:layout_height="70px"
-                android:inputType="text"
-                android:ems="10"
-                android:id="@+id/nSenhaNova"
-                android:textColor="#D3D3D3"
-                android:text="@string/nSenhaNova"
-                android:layout_alignParentStart="true"
-                android:layout_alignEnd="@+id/nNumeroNovo"
-                android:layout_below="@+id/textView15" />
+                android:layout_alignEnd="@+id/textView16"
+                android:layout_marginLeft="20px"/>
 
             <Button
-                android:id="@+id/btnAlterarCartao"
+                android:id="@+id/btnValidar"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Alterar Cartão"
+                android:layout_height="75px"
+                android:text="Validar \nOperação"
                 android:background="@drawable/icon"
                 android:textColorHighlight="@color/colorPrimaryDark"
                 android:textColor="@color/common_google_signin_btn_text_dark"
-                android:layout_marginLeft="50px"
-                android:layout_marginTop="20px"
-                android:layout_below="@+id/nSenhaNova"
-                android:layout_alignEnd="@+id/textView12" />
+                android:layout_marginLeft="420px"
+                android:layout_marginTop="150px"
+                android:layout_alignLeft="@+id/nConfirmacao"
+                android:layout_alignTop="@+id/btnGerarCodigo" />
 
             <Button
-                android:id="@+id/btnCancelarCartao"
+                android:id="@+id/btnGerarCodigo"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cancelar Cartão"
+                android:layout_height="75px"
+                android:text="Gerar \nCódigo"
                 android:background="@drawable/icon"
                 android:textColorHighlight="@color/colorPrimaryDark"
                 android:textColor="@color/common_google_signin_btn_text_dark"
-                android:layout_alignBottom="@+id/btnAlterarCartao"
-                android:layout_alignLeft="@+id/btnAlterarCartao"
-                android:layout_marginLeft="350px"
+                android:layout_alignBottom="@+id/nValor"
+                android:layout_alignLeft="@+id/nValor"
+                android:layout_marginLeft="420px"
                 android:layout_marginTop="40px"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Código de Confirmação"
+                android:id="@+id/textView16"
+                android:textColorHighlight="@color/colorPrimaryDark"
+                android:textColor="@color/common_google_signin_btn_text_dark"
+                android:layout_below="@+id/nValor"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="40px"
+                android:layout_marginLeft="20px"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/Extratos"
+                android:textColorHighlight="@color/colorPrimaryDark"
+                android:textColor="@color/common_google_signin_btn_text_dark"
+                android:layout_below="@+id/nConfirmacao"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="80px"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Extratos"
+                android:id="@+id/textView18"
+                android:layout_below="@+id/btnValidar"
+                android:layout_centerHorizontal="true"
+                android:textColorHighlight="@color/colorPrimaryDark"
+                android:textColor="@color/common_google_signin_btn_text_dark"
+                android:layout_marginTop="30px"/>
 
         </RelativeLayout>
     </ScrollView>

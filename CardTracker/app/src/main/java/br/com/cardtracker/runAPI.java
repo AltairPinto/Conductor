@@ -73,8 +73,11 @@ public class runAPI extends AppCompatActivity {
         cartao1.setSenha("123123098asd@");
         cartao1.setCvv("cvv");
         cartao1 = cartaoApi.createUsingPOST(conta1.getId(), cartao1);
-        cartaoApi.creditarUsingPUT(conta1.getId(), cartao1.getId(), 100.00);
         //cartao1Infos(cartao1.getCvv(),cartao1.getId(),cartao1.getNome(),cartao1.getNumero(),cartao1.getSenha(),cartao1.getStatus());
+        /**
+         * Creditando R$ 300.00 no cartao1
+         */
+        cartaoApi.creditarUsingPUT(conta1.getId(), cartao1.getId(), 300.00);
         setCartao1Info(cartao1);
         /**
          * Criando o cartão 02 da conta 01
@@ -84,9 +87,13 @@ public class runAPI extends AppCompatActivity {
         cartao2.setCvv("cvv");
         cartao2 = cartaoApi.createUsingPOST(conta1.getId(), cartao2);
         //cartao2Infos(cartao2.getCvv(),cartao2.getId(),cartao2.getNome(),cartao2.getNumero(),cartao2.getSenha(),cartao2.getStatus());
+        /**
+         * Creditando R$ 100.00 no cartao2
+         */
+        cartaoApi.creditarUsingPUT(conta1.getId(), cartao2.getId(), 100.00);
         setCartao2Info(cartao2);
-
         System.out.println("\n" + cartaoApi.getAllUsingGET(conta1.getId()));
+
     }
 
     // Get para os valores obtidos pela API

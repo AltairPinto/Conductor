@@ -55,6 +55,7 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
 
         System.out.println("Conta Nome no Menu: "+conta1.getNome());
         System.out.println("Conta ID no Menu: "+conta1.getId());
+
         nConta.setText(conta1.getNome());
         nID.setText(conta1.getId().toString());
 
@@ -96,6 +97,17 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
                 startActivity(it3);
             }
         }); // Fim de Cartões
+
+        btnTransferencia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder dig = new AlertDialog.Builder(Menu.this);
+                Intent ite = new Intent(Menu.this, Transferencia.class);
+                dig.setMessage("Carregando Transferência...");
+                dig.show();
+                startActivity(ite);
+            }
+        }); // Fim de Transferência
     }
 
     @Override
