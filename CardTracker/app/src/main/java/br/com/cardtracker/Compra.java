@@ -3,8 +3,10 @@ package br.com.cardtracker;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -44,11 +46,15 @@ public class Compra extends AppCompatActivity implements View.OnClickListener {
     public Cartao cartao2 = runAPI.getCartao2Infos();
 
     public String selectID;
+    public int SMSCode = 5530928;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compra);
+
+        ActivityCompat.requestPermissions(this,new String[]{android.Manifest.permission.SEND_SMS},1);
+
 
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -72,7 +78,6 @@ public class Compra extends AppCompatActivity implements View.OnClickListener {
 
         // Limite dos Cartões
         try {
-
             Limites.setText("Cartão ID "+cartao1.getId()+" : "+cartaoApi.limiteUsingGET(conta1.getId(), cartao1.getId())+
                     "\nCartão ID "+cartao2.getId()+" : "+cartaoApi.limiteUsingGET(conta1.getId(), cartao2.getId()));
         } catch (ApiException e) {
@@ -103,7 +108,13 @@ public class Compra extends AppCompatActivity implements View.OnClickListener {
         btnGerarCodigo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                AlertDialog.Builder dig = new AlertDialog.Builder(Compra.this);
+                dig.setTitle("Enviando Código de Confirmação");
+                dig.setMessage("\nCódigo enviado via SMS para o número: +5583999887734");
+                dig.setNeutralButton("OK", null);
+                dig.show();
+                SmsManager smsManager = SmsManager.getDefault();
+                smsManager.sendTextMessage("+5583999887734", null, "Código de Confirmação: 5530928", null, null);
             }
         }); // Fim Gera Código
 
@@ -116,8 +127,9 @@ public class Compra extends AppCompatActivity implements View.OnClickListener {
 
         final Long getLongFromText = new Long(selectID);
         final Double getDoubleFromText = new Double(nValor.getText().toString());
+        final int nIntFromText = new Integer(nConfirmacao.getText().toString()).intValue();
 
-        if ((nConfirmacao.getText().toString())!=null){
+        if (nIntFromText == SMSCode){
             try {
                 cartaoApi.transacionarUsingPUT(conta1.getId(),getLongFromText,getDoubleFromText);
                 dig.setTitle("Compra efetuada com sucesso");
@@ -136,6 +148,13 @@ public class Compra extends AppCompatActivity implements View.OnClickListener {
             dig.setMessage("\nPreencha os campos corretamente");
             dig.setNeutralButton("Voltar", null);
             dig.show();
+        }
+        // Saída
+        try {
+            Limites.setText("Cartão ID "+cartao1.getId()+" : "+cartaoApi.limiteUsingGET(conta1.getId(), cartao1.getId())+
+                    "\nCartão ID "+cartao2.getId()+" : "+cartaoApi.limiteUsingGET(conta1.getId(), cartao2.getId()));
+        } catch (ApiException e) {
+            Limites.setText("Algum dos cartões está bloqueado. Para verificar apenas o Limite de um cartão, vá até a aba 'Cartões' - " + e);
         }
     }
 

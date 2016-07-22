@@ -83,11 +83,11 @@ public class Contas extends AppCompatActivity implements View.OnClickListener{
     public void onClick(View view) {
 
         AlertDialog.Builder dig = new AlertDialog.Builder(Contas.this);
+        final Long getLongFromText = new Long(nIDNovo.getText().toString());
         //conta1.setNome(nContaNovo.getText().toString());
         //System.out.println("Novo nome da conta: "+conta1.getNome());
 
         try {
-            final Long getLongFromText = new Long(nIDNovo.getText().toString());
             conta1.setId(getLongFromText);
             System.out.println("Novo Nome Conta: "+conta1.getNome());
             System.out.println("Novo ID Conta: "+conta1.getId());
@@ -107,19 +107,20 @@ public class Contas extends AppCompatActivity implements View.OnClickListener{
             conta1.setNome(new String(nContaNovo.getText().toString()));
         }
         System.out.println("Novo Nome: "+conta1.getNome());
+
         try {
             contaApi.updateUsingPUT1(conta1); //Uso da API para atualizar conta this.
-            System.out.println("Get 2 da Conta1 em Contas: "+contaApi.getOneUsingGET1(conta1.getId()));
+            dig.setMessage("Dados alterados com sucesso! Novos dados: \n"+this.conta1);
+            dig.setNeutralButton("Ok",null);
+            dig.show();
         } catch (ApiException e) {
-            dig.setMessage("Conta não encontrada");
+            dig.setMessage("Conta não encontrada "+e);
             dig.setNeutralButton("Voltar",null);
             nConta.setText(conta1.getNome());
             nID.setText(conta1.getId().toString());
             dig.show();
         }
-        dig.setMessage("Dados alterados com sucesso! Novos dados: \n"+this.conta1);
-        dig.setNeutralButton("Ok",null);
-        dig.show();
+        // Saída
         nConta.setText(conta1.getNome());
         nID.setText(conta1.getId().toString());
     }

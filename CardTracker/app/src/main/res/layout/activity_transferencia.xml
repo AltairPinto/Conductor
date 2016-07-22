@@ -204,7 +204,7 @@
             <EditText
                 android:layout_width="200px"
                 android:layout_height="90px"
-                android:inputType="textPassword"
+                android:inputType="numberPassword"
                 android:ems="10"
                 android:id="@+id/nConfirmacao"
                 android:textColor="#D3D3D3"

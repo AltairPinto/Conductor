@@ -49,6 +49,7 @@ public class Cartoes extends AppCompatActivity implements View.OnClickListener{
     public Cartao cartao1 = runAPI.getCartao1Infos();
     public Cartao cartao2 = runAPI.getCartao2Infos();
 
+    public List<Cartao> getAPIFromText;
     public String selectID;
 
     @Override
@@ -82,13 +83,12 @@ public class Cartoes extends AppCompatActivity implements View.OnClickListener{
         nID.setText(conta1.getId().toString());
 
         try {
-
-            List<Cartao> getAPIFromText = cartaoApi.getAllUsingGET(conta1.getId()); // Pegar todos os cartões da conta
-
+            getAPIFromText = cartaoApi.getAllUsingGET(conta1.getId()); // Pegar todos os cartões da conta
             Cards.setText(getAPIFromText.toString());
         } catch (ApiException e) {
             System.out.println("Deu pau em Cartoes "+e);
         }
+
         // Criando o Spinner para IDs
         ArrayAdapter<Long> arrayAdapter = new ArrayAdapter<Long>(this,android.R.layout.simple_spinner_item);
         final ArrayAdapter<Long> spinnerArrayAdapter = arrayAdapter;
@@ -133,11 +133,14 @@ public class Cartoes extends AppCompatActivity implements View.OnClickListener{
         btnAlterarCartao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 final Long getLongFromText = new Long(selectID);
+                final int getCartao1ID = new Integer(cartao1.getId().toString());
+
                 AlertDialog.Builder dig = new AlertDialog.Builder(Cartoes.this);
                 System.out.println("Selected ID FINAL: "+selectID);
 
-                if (getLongFromText == cartao1.getId()) {
+                if (getLongFromText == getCartao1ID) {
                     cartao1.setCvv(nCVVNovo.getText().toString());
                     cartao1.setNome(nNomeNovo.getText().toString());
                     cartao1.setNumero(nNumeroNovo.getText().toString());
@@ -145,14 +148,14 @@ public class Cartoes extends AppCompatActivity implements View.OnClickListener{
                     try {
                         cartaoApi.updateUsingPUT(conta1.getId(), cartao1);//id conta e objeto cartao}
                         dig.setTitle("Confirmação");
-                        dig.setMessage("\nCartão de ID "+selectID+" alterado com sucesso!");
+                        dig.setMessage("\nCartão de ID "+getLongFromText+" alterado com sucesso!");
                         dig.setNeutralButton("OK", null);
                         dig.show();
                     } catch (ApiException e) {
                         e.printStackTrace();
                     }
 
-                } else {
+                }else {
                     cartao2.setCvv(nCVVNovo.getText().toString());
                     cartao2.setNome(nNomeNovo.getText().toString());
                     cartao2.setNumero(nNumeroNovo.getText().toString());
@@ -160,13 +163,21 @@ public class Cartoes extends AppCompatActivity implements View.OnClickListener{
                     try {
                         cartaoApi.updateUsingPUT(conta1.getId(), cartao2);//id conta e objeto cartao}
                         dig.setTitle("Confirmação");
-                        dig.setMessage("\nCartão de ID "+selectID+" alterado com sucesso!");
+                        dig.setMessage("\nCartão de ID "+getLongFromText+" alterado com sucesso!");
                         dig.setNeutralButton("OK", null);
                         dig.show();
                     } catch (ApiException e) {
                         e.printStackTrace();
                     }
-                } //Fim do if/else
+                } //Fim do if/
+
+                //Saída
+                try {
+                    getAPIFromText = cartaoApi.getAllUsingGET(conta1.getId()); // Pegar todos os cartões da conta
+                    Cards.setText(getAPIFromText.toString());
+                } catch (ApiException e) {
+                    System.out.println("Deu pau em Cartoes "+e);
+                }
             }// Fim do onClick
         });
 
@@ -189,6 +200,13 @@ public class Cartoes extends AppCompatActivity implements View.OnClickListener{
                     dig.setNeutralButton("Voltar", null);
                     dig.show();
                 }
+                //Saída
+                try {
+                    getAPIFromText = cartaoApi.getAllUsingGET(conta1.getId()); // Pegar todos os cartões da conta
+                    Cards.setText(getAPIFromText.toString());
+                } catch (ApiException e) {
+                    System.out.println("Deu pau em Cartoes "+e);
+                }
             }
         });
 
@@ -208,7 +226,8 @@ public class Cartoes extends AppCompatActivity implements View.OnClickListener{
                     dig.setTitle("Erro");
                     dig.setMessage("\n"+e);
                     dig.setNeutralButton("Voltar", null);
-                    dig.show();                }
+                    dig.show();
+                }
             }
         });
 
@@ -232,6 +251,13 @@ public class Cartoes extends AppCompatActivity implements View.OnClickListener{
                 dig5.setNeutralButton("Voltar", null);
                 dig5.show();
             }
+        //Saída
+        try {
+            getAPIFromText = cartaoApi.getAllUsingGET(conta1.getId()); // Pegar todos os cartões da conta
+            Cards.setText(getAPIFromText.toString());
+        } catch (ApiException e) {
+            System.out.println("Deu pau em Cartoes "+e);
+        }
     }
 
     public void onBackPressed(){

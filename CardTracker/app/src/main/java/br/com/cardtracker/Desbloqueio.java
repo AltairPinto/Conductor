@@ -41,6 +41,7 @@ public class Desbloqueio extends AppCompatActivity implements View.OnClickListen
     public Cartao cartao2 = runAPI.getCartao2Infos();
 
     public String selectID;
+    public List<Cartao> getAPIFromText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,15 +87,12 @@ public class Desbloqueio extends AppCompatActivity implements View.OnClickListen
         }); //Fim do Spinner
 
         try {
-            //contaApi.getOneUsingGET1(conta1.getId()); // Pega os dados da conta
-            //cartaoApi.getAllUsingGET(conta1.getId()); // Pega os cartões da conta
-
-            List<Cartao> getAPIFromText = cartaoApi.getAllUsingGET(conta1.getId()); // Pegar todos os cartões da conta
-
-            Cartoes.setText(getAPIFromText.toString());
+                getAPIFromText = cartaoApi.getAllUsingGET(conta1.getId()); // Pegar todos os cartões da conta
+                Cartoes.setText(getAPIFromText.toString());
         } catch (ApiException e) {
             System.out.println("Deu pau em Desbloqueio "+e);
         }
+
         btnDesbloquear.setOnClickListener(this);
 
     }
@@ -116,6 +114,13 @@ public class Desbloqueio extends AppCompatActivity implements View.OnClickListen
             dig.setMessage("\n"+e);
             dig.setNeutralButton("Voltar", null);
             dig.show();
+        }
+        //Saída
+        try {
+            getAPIFromText = cartaoApi.getAllUsingGET(conta1.getId()); // Pegar todos os cartões da conta
+            Cartoes.setText(getAPIFromText.toString());
+        } catch (ApiException e) {
+            System.out.println("Deu pau em Cartoes "+e);
         }
     }
 

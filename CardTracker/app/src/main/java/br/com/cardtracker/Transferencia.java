@@ -1,10 +1,13 @@
 package br.com.cardtracker;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,8 +15,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import java.util.List;
 
 import br.com.conductor.sdc.api.v1.CartaoApi;
 import br.com.conductor.sdc.api.v1.ContaApi;
@@ -48,16 +49,19 @@ public class Transferencia extends AppCompatActivity implements View.OnClickList
 
     public String selectID1;
     public String selectID2;
+    public int SMSCode = 5530928;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transferencia);
 
-        if (android.os.Build.VERSION.SDK_INT > 9) {
+        if (Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         } //Thread não dar conflito
+
+        ActivityCompat.requestPermissions(this,new String[]{android.Manifest.permission.SEND_SMS},1);
 
         Limites = (TextView) findViewById(R.id.Limites); // Campo para jogar os cartões existentes
         Extratos = (TextView) findViewById(R.id.Extratos); // Campo para jogar os cartões existentes
@@ -88,9 +92,6 @@ public class Transferencia extends AppCompatActivity implements View.OnClickList
 
         // Extrato dos Cartões
         try {
-
-            List<Cartao> getAPIFromText = cartaoApi.getAllUsingGET(conta1.getId()); // Pegar todos os cartões da conta
-
             Extratos.setText("Cartão ID "+cartao1.getId()+" : "+cartaoApi.extratosUsingPOST(conta1.getId(),cartao1.getId())+
                             "\nCartão ID "+cartao2.getId()+" : "+cartaoApi.extratosUsingPOST(conta1.getId(),cartao2.getId()));
         } catch (ApiException e) {
@@ -137,7 +138,13 @@ public class Transferencia extends AppCompatActivity implements View.OnClickList
         btnGerarCodigo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                AlertDialog.Builder dig = new AlertDialog.Builder(Transferencia.this);
+                dig.setTitle("Enviando Código de Confirmação");
+                dig.setMessage("\nCódigo enviado via SMS para o número: +5583999887734");
+                dig.setNeutralButton("OK", null);
+                dig.show();
+                SmsManager smsManager = SmsManager.getDefault();
+                smsManager.sendTextMessage("+5583999887734", null, "Código de Confirmação: 5530928", null, null);
             }
         }); // Fim Gera Código
 
@@ -152,8 +159,10 @@ public class Transferencia extends AppCompatActivity implements View.OnClickList
         final Long getLongFromText1 = new Long(selectID1);
         final Long getLongFromText2 = new Long(selectID2);
         final Double getDoubleFromText = new Double(nValor.getText().toString());
+        final int nIntFromText = new Integer(nConfirmacao.getText().toString()).intValue();
 
-        if ((nConfirmacao.getText().toString())!=null){
+
+        if (nIntFromText == SMSCode){
             try {
                 cartaoApi.transferirUsingPOST(conta1.getId(),getLongFromText1,getLongFromText2,getDoubleFromText);
                 dig.setTitle("Transferência efetuada com sucesso");
@@ -172,6 +181,22 @@ public class Transferencia extends AppCompatActivity implements View.OnClickList
             dig.setMessage("\nPreencha os campos corretamente");
             dig.setNeutralButton("Voltar", null);
             dig.show();
+        }
+        // Saída
+
+        // Limite dos Cartões
+        try {
+            Limites.setText("Cartão ID "+cartao1.getId()+" : "+cartaoApi.limiteUsingGET(conta1.getId(), cartao1.getId())+
+                    "\nCartão ID "+cartao2.getId()+" : "+cartaoApi.limiteUsingGET(conta1.getId(), cartao2.getId()));
+        } catch (ApiException e) {
+            Limites.setText("Algum dos cartões está bloqueado. Para verificar apenas o Limite de um cartão, vá até a aba 'Cartões' - " + e);
+        }
+        // Extrato dos Cartões
+        try {
+            Extratos.setText("Cartão ID "+cartao1.getId()+" : "+cartaoApi.extratosUsingPOST(conta1.getId(),cartao1.getId())+
+                    "\nCartão ID "+cartao2.getId()+" : "+cartaoApi.extratosUsingPOST(conta1.getId(),cartao2.getId()));
+        } catch (ApiException e) {
+            Extratos.setText("Algum dos cartões está bloqueado. Para verificar apenas o extrato de um cartão, vá até a aba 'Cartões' - " + e);
         }
     }
 
