@@ -112,7 +112,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Selecione um Cartão para atualizar"
+                android:text="Selecione um Cartão"
                 android:id="@+id/textView44"
                 android:textColorHighlight="@color/colorPrimaryDark"
                 android:textColor="@color/common_google_signin_btn_text_dark"
@@ -134,6 +134,32 @@
                 android:textColorHighlight="@color/colorPrimaryDark"
                 android:spinnerMode="dropdown"
                 android:background="@drawable/icon"/>
+
+            <Button
+                android:id="@+id/btnBloqueio"
+                android:layout_width="wrap_content"
+                android:layout_height="70px"
+                android:text="Bloqueio"
+                android:background="@drawable/icon"
+                android:textColorHighlight="@color/colorPrimaryDark"
+                android:textColor="@color/common_google_signin_btn_text_dark"
+                android:layout_alignBottom="@+id/nIDNovo"
+                android:layout_alignLeft="@+id/btnCancelarCartao"
+                android:layout_marginLeft="10px"
+                android:layout_marginTop="40px"/>
+
+            <Button
+                android:id="@+id/btnLimite"
+                android:layout_width="wrap_content"
+                android:layout_height="70px"
+                android:text="Limite"
+                android:background="@drawable/icon"
+                android:textColorHighlight="@color/colorPrimaryDark"
+                android:textColor="@color/common_google_signin_btn_text_dark"
+                android:layout_alignBottom="@+id/nIDNovo"
+                android:layout_alignLeft="@+id/btnBloqueio"
+                android:layout_marginLeft="200px"
+                android:layout_marginTop="40px"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -176,7 +202,7 @@
                 android:id="@+id/nNomeNovo"
                 android:textColor="#D3D3D3"
                 android:text="@string/nNomeNovo"
-                android:layout_alignEnd="@+id/textView44"
+                android:layout_alignEnd="@+id/btnExtratoCartao"
                 android:layout_toEndOf="@+id/nCVVNovo"
                 android:layout_below="@+id/textView12" />
 

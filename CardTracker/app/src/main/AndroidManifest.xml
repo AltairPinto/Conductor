@@ -46,7 +46,8 @@
             android:name=".Local"
             android:label="@string/title_activity_local" />
         <activity android:name=".Compra" />
-        <activity android:name=".Transferencia"></activity>
+        <activity android:name=".Transferencia" />
+        <activity android:name=".Desbloqueio"></activity>
     </application>
 
 </manifest>

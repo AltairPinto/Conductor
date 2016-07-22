@@ -23,7 +23,7 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
     private ImageButton btnConta;
     private ImageButton btnCompra;
     private ImageButton btnCartoes;
-    private ImageButton btnLock;
+    private ImageButton btnDesbloqueio;
     private ImageButton btnTransferencia;
 
 
@@ -50,7 +50,7 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
         btnConta = (ImageButton) findViewById(R.id.btnConta);
         btnCompra = (ImageButton) findViewById(R.id.btnCompra);
         btnCartoes = (ImageButton) findViewById(R.id.btnCartoes);
-        btnLock = (ImageButton) findViewById(R.id.btnLock);
+        btnDesbloqueio = (ImageButton) findViewById(R.id.btnDesbloqueio);
         btnTransferencia = (ImageButton) findViewById(R.id.btnTransferencia);
 
         System.out.println("Conta Nome no Menu: "+conta1.getNome());
@@ -108,6 +108,17 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
                 startActivity(ite);
             }
         }); // Fim de Transferência
+
+        btnDesbloqueio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder dig = new AlertDialog.Builder(Menu.this);
+                Intent its = new Intent(Menu.this, Desbloqueio.class);
+                dig.setMessage("Carregando Desbloqueio...");
+                dig.show();
+                startActivity(its);
+            }
+        }); // Fim de Desbloqueio
     }
 
     @Override

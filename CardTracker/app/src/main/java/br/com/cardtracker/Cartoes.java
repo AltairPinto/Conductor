@@ -31,6 +31,9 @@ public class Cartoes extends AppCompatActivity implements View.OnClickListener{
     private Button btnAlterarCartao;
     private Button btnCancelarCartao;
     private Button btnExtratoCartao;
+    private Button btnBloqueio;
+    private Button btnLimite;
+
 
     private EditText nCVVNovo;
     private EditText nNomeNovo;
@@ -72,13 +75,13 @@ public class Cartoes extends AppCompatActivity implements View.OnClickListener{
         btnAlterarCartao = (Button) findViewById(R.id.btnAlterarCartao);
         btnCancelarCartao = (Button) findViewById(R.id.btnCancelarCartao);
         btnExtratoCartao = (Button) findViewById(R.id.btnExtratoCartao);
+        btnBloqueio = (Button) findViewById(R.id.btnBloqueio);
+        btnLimite = (Button) findViewById(R.id.btnLimite);
 
         nConta.setText(conta1.getNome());
         nID.setText(conta1.getId().toString());
 
         try {
-            contaApi.getOneUsingGET1(conta1.getId()); // Pega os dados da conta
-            cartaoApi.getAllUsingGET(conta1.getId()); // Pega os cartões da conta
 
             List<Cartao> getAPIFromText = cartaoApi.getAllUsingGET(conta1.getId()); // Pegar todos os cartões da conta
 
@@ -166,6 +169,49 @@ public class Cartoes extends AppCompatActivity implements View.OnClickListener{
                 } //Fim do if/else
             }// Fim do onClick
         });
+
+        btnBloqueio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Long getLongFromText = new Long(selectID);
+                AlertDialog.Builder dig = new AlertDialog.Builder(Cartoes.this);
+                System.out.println("Selected ID Bloqueio: "+selectID);
+
+                try {
+                    cartaoApi.bloquearUsingPUT(conta1.getId(),getLongFromText);
+                    dig.setTitle("Bloqueado");
+                    dig.setMessage("\nCartão de ID "+selectID+" bloqueado com sucesso!");
+                    dig.setNeutralButton("OK", null);
+                    dig.show();
+                } catch (ApiException e) {
+                    dig.setTitle("Erro");
+                    dig.setMessage("\n"+e);
+                    dig.setNeutralButton("Voltar", null);
+                    dig.show();
+                }
+            }
+        });
+
+        btnLimite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Long getLongFromText = new Long(selectID);
+                AlertDialog.Builder dig = new AlertDialog.Builder(Cartoes.this);
+                System.out.println("Selected ID Bloqueio: "+selectID);
+
+                try {
+                    dig.setTitle("Limite");
+                    dig.setMessage("\nCartão ID "+getLongFromText+" : "+cartaoApi.limiteUsingGET(conta1.getId(), getLongFromText));
+                    dig.setNeutralButton("OK", null);
+                    dig.show();
+                } catch (ApiException e) {
+                    dig.setTitle("Erro");
+                    dig.setMessage("\n"+e);
+                    dig.setNeutralButton("Voltar", null);
+                    dig.show();                }
+            }
+        });
+
         btnCancelarCartao.setOnClickListener(this); // Cancelamento do Cartão
     }
 

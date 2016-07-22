@@ -79,29 +79,22 @@ public class Transferencia extends AppCompatActivity implements View.OnClickList
 
         // Limite dos Cartões
         try {
-            contaApi.getOneUsingGET1(conta1.getId()); // Pega os dados da conta
-            cartaoApi.getAllUsingGET(conta1.getId()); // Pega os cartões da conta
 
             Limites.setText("Cartão ID "+cartao1.getId()+" : "+cartaoApi.limiteUsingGET(conta1.getId(), cartao1.getId())+
                             "\nCartão ID "+cartao2.getId()+" : "+cartaoApi.limiteUsingGET(conta1.getId(), cartao2.getId()));
         } catch (ApiException e) {
-            System.out.println("Deu pau em Transferencia " + e);
+            Extratos.setText("Algum dos cartões está bloqueado. Para verificar apenas o Limite de um cartão, vá até a aba 'Cartões' - " + e);
         }
 
         // Extrato dos Cartões
         try {
-            contaApi.getOneUsingGET1(conta1.getId()); // Pega os dados da conta
-            cartaoApi.getAllUsingGET(conta1.getId()); // Pega os cartões da conta
-
-            cartaoApi.extratosUsingPOST(conta1.getId(),cartao1.getId());
-            cartaoApi.extratosUsingPOST(conta1.getId(),cartao2.getId());
 
             List<Cartao> getAPIFromText = cartaoApi.getAllUsingGET(conta1.getId()); // Pegar todos os cartões da conta
 
             Extratos.setText("Cartão ID "+cartao1.getId()+" : "+cartaoApi.extratosUsingPOST(conta1.getId(),cartao1.getId())+
                             "\nCartão ID "+cartao2.getId()+" : "+cartaoApi.extratosUsingPOST(conta1.getId(),cartao2.getId()));
         } catch (ApiException e) {
-            System.out.println("Deu pau em Transferencia " + e);
+            Extratos.setText("Algum dos cartões está bloqueado. Para verificar apenas o extrato de um cartão, vá até a aba 'Cartões' - " + e);
         }
 
         // Criando o Spinner para IDs

@@ -5,7 +5,6 @@
     <string name="btnInfos">Informações</string>
     <string name="btnCompra">Comprar</string>
     <string name="btnConfirma">Confirmação</string>
-    <string name="btnLock">Bloqueio</string>
     <string name="btnTransferencia">Transf.</string>
     <string name="title_activity_infos">Infos</string>
     <string name="action_settings">Settings</string>
@@ -127,4 +126,5 @@
     <string name="nCVVNovo" />
     <string name="nNumeroNovo" />
     <string name="nSenhaNova" />
+    <string name="btnDesbloqueio">Desbloqueio</string>
 </resources>
