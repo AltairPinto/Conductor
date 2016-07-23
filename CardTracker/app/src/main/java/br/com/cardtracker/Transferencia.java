@@ -41,8 +41,8 @@ public class Transferencia extends AppCompatActivity implements View.OnClickList
 
     // Atributos API
     public runAPI runAPI = new runAPI();
-    public ContaApi contaApi = runAPI.getContaApiInfos("3BJU7WSdxYVy","VxUGXKTjnPCa","https://api.conductor.com.br/sdc");
-    public CartaoApi cartaoApi = runAPI.getCartaoApiInfos("3BJU7WSdxYVy","VxUGXKTjnPCa","https://api.conductor.com.br/sdc");
+    public ContaApi contaApi = runAPI.getContaApiInfos();//("3BJU7WSdxYVy","VxUGXKTjnPCa","https://api.conductor.com.br/sdc");
+    public CartaoApi cartaoApi = runAPI.getCartaoApiInfos();//("3BJU7WSdxYVy","VxUGXKTjnPCa","https://api.conductor.com.br/sdc");
     public Conta conta1 = runAPI.getConta1Infos();
     public Cartao cartao1 = runAPI.getCartao1Infos();
     public Cartao cartao2 = runAPI.getCartao2Infos();

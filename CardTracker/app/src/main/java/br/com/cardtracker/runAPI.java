@@ -53,14 +53,16 @@ public class runAPI extends AppCompatActivity {
         ApiInvoker.getInstance().addDefaultHeader("client_id", client_id);
 
         contaApi.setBasePath(BASE_PATH);
-        getContaApiInfos(access_token,client_id,BASE_PATH);
+        setContaApiInfo(contaApi);
+        //getContaApiInfos(access_token,client_id,BASE_PATH);
         cartaoApi.setBasePath(BASE_PATH);
-        getCartaoApiInfos(access_token,client_id,BASE_PATH);
+        setCartaoApiInfo(cartaoApi);
+        //getCartaoApiInfos(access_token,client_id,BASE_PATH);
 
         /**
          * Criando conta 01
          */
-        conta1.setNome("NOME CONTA 1");
+        conta1.setNome("Markão Card");
         conta1 = contaApi.createUsingPOST1(conta1);
         System.out.println(conta1);
         //contaInfos(conta1.getNome(),conta1.getId()); //Capturar os valores da Contas
@@ -69,9 +71,9 @@ public class runAPI extends AppCompatActivity {
         /**
          * Criando o cartão 01 da conta 01
          */
-        cartao1.setNome("NOME DO CARTAO");
+        cartao1.setNome("Dilmãe Rousseff");
         cartao1.setSenha("123123098asd@");
-        cartao1.setCvv("cvv");
+        cartao1.setCvv("101");
         cartao1 = cartaoApi.createUsingPOST(conta1.getId(), cartao1);
         //cartao1Infos(cartao1.getCvv(),cartao1.getId(),cartao1.getNome(),cartao1.getNumero(),cartao1.getSenha(),cartao1.getStatus());
         /**
@@ -82,9 +84,9 @@ public class runAPI extends AppCompatActivity {
         /**
          * Criando o cartão 02 da conta 01
          */
-        cartao2.setNome("NOME DO CARTAO");
+        cartao2.setNome("Emmanuel Pinto");
         cartao2.setSenha("123123098asd@");
-        cartao2.setCvv("cvv");
+        cartao2.setCvv("102");
         cartao2 = cartaoApi.createUsingPOST(conta1.getId(), cartao2);
         //cartao2Infos(cartao2.getCvv(),cartao2.getId(),cartao2.getNome(),cartao2.getNumero(),cartao2.getSenha(),cartao2.getStatus());
         /**
@@ -97,15 +99,15 @@ public class runAPI extends AppCompatActivity {
     }
 
     // Get para os valores obtidos pela API
-    public ContaApi getContaApiInfos(String access_token, String client_id, String BASE_PATH){
-        ApiInvoker.getInstance().addDefaultHeader("access_token", access_token);
-        ApiInvoker.getInstance().addDefaultHeader("client_id", client_id);
-        contaApi.setBasePath(BASE_PATH);
+    public ContaApi getContaApiInfos(){//(String access_token, String client_id, String BASE_PATH){
+        //ApiInvoker.getInstance().addDefaultHeader("access_token", access_token);
+        //ApiInvoker.getInstance().addDefaultHeader("client_id", client_id);
+        //contaApi.setBasePath(BASE_PATH);
         return contaApi;}
-    public CartaoApi getCartaoApiInfos(String access_token, String client_id, String BASE_PATH){
-        ApiInvoker.getInstance().addDefaultHeader("access_token", access_token);
-        ApiInvoker.getInstance().addDefaultHeader("client_id", client_id);
-        cartaoApi.setBasePath(BASE_PATH);
+    public CartaoApi getCartaoApiInfos(){//(String access_token, String client_id, String BASE_PATH){
+        //ApiInvoker.getInstance().addDefaultHeader("access_token", access_token);
+        //ApiInvoker.getInstance().addDefaultHeader("client_id", client_id);
+        //cartaoApi.setBasePath(BASE_PATH);
         return cartaoApi;}
     public Conta getConta1Infos(){
         System.out.println("CONTA 1 RECEBEU ID: "+conta1.getId());

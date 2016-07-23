@@ -135,17 +135,6 @@
                 android:spinnerMode="dropdown"
                 android:background="@drawable/icon"/>
 
-            <Button
-                android:id="@+id/btnDesbloquear"
-                android:layout_width="wrap_content"
-                android:layout_height="70px"
-                android:text="Desbloquear"
-                android:background="@drawable/icon"
-                android:textColorHighlight="@color/colorPrimaryDark"
-                android:textColor="@color/common_google_signin_btn_text_dark"
-                android:layout_marginLeft="410px"
-                android:layout_alignBottom="@+id/nIDSpinner"/>
-
         </RelativeLayout>
     </ScrollView>
 

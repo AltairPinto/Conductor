@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0e4fbe">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Confirmar Operação?"
+        android:id="@+id/textView11"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="67dp"
+        android:textColorHighlight="@color/colorPrimaryDark"
+        android:textColor="@color/common_google_signin_btn_text_dark"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sim"
+        android:id="@+id/Sim"
+        android:layout_marginTop="47dp"
+        android:background="@drawable/screen_border"
+        android:textColor="#CDCDCD"
+        android:layout_marginLeft="100px"
+        android:layout_below="@+id/textView11"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Não"
+        android:id="@+id/Nao"
+        android:background="@drawable/screen_border"
+        android:textColor="#CDCDCD"
+        android:layout_alignTop="@+id/Sim"
+        android:layout_alignLeft="@+id/Sim"
+        android:layout_marginLeft="200px"/>
+</RelativeLayout>

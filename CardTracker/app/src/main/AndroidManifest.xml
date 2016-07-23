@@ -33,6 +33,7 @@
         <activity android:name=".Menu" />
         <activity android:name=".Contas" />
         <activity android:name=".Cartoes" />
+        <activity android:name=".Pop" android:theme="@style/AppTheme.CustomTheme"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -30,12 +29,12 @@ public class Desbloqueio extends AppCompatActivity implements View.OnClickListen
     private EditText nConta;
     private EditText nID;
 
-    private Button btnDesbloquear;
+    //private Button btnDesbloquear;
 
     // Atributos API
     public runAPI runAPI = new runAPI();
-    public ContaApi contaApi = runAPI.getContaApiInfos("3BJU7WSdxYVy","VxUGXKTjnPCa","https://api.conductor.com.br/sdc");
-    public CartaoApi cartaoApi = runAPI.getCartaoApiInfos("3BJU7WSdxYVy","VxUGXKTjnPCa","https://api.conductor.com.br/sdc");
+    public ContaApi contaApi = runAPI.getContaApiInfos();//("3BJU7WSdxYVy","VxUGXKTjnPCa","https://api.conductor.com.br/sdc");
+    public CartaoApi cartaoApi = runAPI.getCartaoApiInfos();//("3BJU7WSdxYVy","VxUGXKTjnPCa","https://api.conductor.com.br/sdc");
     public Conta conta1 = runAPI.getConta1Infos();
     public Cartao cartao1 = runAPI.getCartao1Infos();
     public Cartao cartao2 = runAPI.getCartao2Infos();
@@ -60,7 +59,7 @@ public class Desbloqueio extends AppCompatActivity implements View.OnClickListen
         nConta = (EditText) findViewById(R.id.nConta);
         nID = (EditText) findViewById(R.id.nID);
 
-        btnDesbloquear = (Button) findViewById(R.id.btnDesbloquear);
+        //btnDesbloquear = (Button) findViewById(R.id.btnDesbloquearCartao);
 
         nConta.setText(conta1.getNome());
         nID.setText(conta1.getId().toString());
@@ -93,7 +92,7 @@ public class Desbloqueio extends AppCompatActivity implements View.OnClickListen
             System.out.println("Deu pau em Desbloqueio "+e);
         }
 
-        btnDesbloquear.setOnClickListener(this);
+        //btnDesbloquear.setOnClickListener(this);
 
     }
 

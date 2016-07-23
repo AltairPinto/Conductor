@@ -127,4 +127,7 @@
     <string name="nNumeroNovo" />
     <string name="nSenhaNova" />
     <string name="btnDesbloqueio">Desbloqueio</string>
+    <string name="nConta1" />
+    <string name="nCartao1" />
+    <string name="nCartao2" />
 </resources>
