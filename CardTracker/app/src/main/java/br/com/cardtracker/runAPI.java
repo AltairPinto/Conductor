@@ -3,6 +3,7 @@ package br.com.cardtracker;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import br.com.conductor.sdc.api.v1.CartaoApi;
@@ -22,9 +23,14 @@ public class runAPI extends AppCompatActivity {
     // Atributos API
     public static ContaApi contaApi = new ContaApi();
     public static CartaoApi cartaoApi = new CartaoApi();
+
     public static Conta conta1 = new Conta();
     public static Cartao cartao1 = new Cartao();
     public static Cartao cartao2 = new Cartao();
+
+    public static Conta conta2 = new Conta();
+    public static Cartao cartao3 = new Cartao();
+    public static Cartao cartao4 = new Cartao();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +42,12 @@ public class runAPI extends AppCompatActivity {
             StrictMode.setThreadPolicy(policy);
         } //Thread não dar conflito
 
+        ActivityCompat.requestPermissions(this,new String[]{android.Manifest.permission.SEND_SMS},1);
+
         try {
-            runAPI(cartaoApi,contaApi,conta1,cartao1,cartao2,access_token,client_id,BASE_PATH);
+            runAPI(cartaoApi,contaApi,conta1,cartao1,cartao2,conta2,cartao3,cartao4,access_token,client_id,BASE_PATH);
         } catch (ApiException e) {
-            System.out.println("Deu pau no runAPI"+e);
+            System.out.println(e);
         }
         Intent it = new Intent(this, MainActivity.class);
         startActivity(it);
@@ -47,35 +55,31 @@ public class runAPI extends AppCompatActivity {
     } //Fim do onCreate
 
     public void runAPI(CartaoApi cartaoApi, ContaApi contaApi, Conta conta1, Cartao cartao1, Cartao cartao2,
-                              String access_token, String client_id, String BASE_PATH) throws ApiException {
+                       Conta conta2, Cartao cartao3, Cartao cartao4, String access_token, String client_id,
+                       String BASE_PATH) throws ApiException {
 
         ApiInvoker.getInstance().addDefaultHeader("access_token", access_token);
         ApiInvoker.getInstance().addDefaultHeader("client_id", client_id);
 
         contaApi.setBasePath(BASE_PATH);
         setContaApiInfo(contaApi);
-        //getContaApiInfos(access_token,client_id,BASE_PATH);
         cartaoApi.setBasePath(BASE_PATH);
         setCartaoApiInfo(cartaoApi);
-        //getCartaoApiInfos(access_token,client_id,BASE_PATH);
-
         /**
          * Criando conta 01
          */
         conta1.setNome("Markão Card");
         conta1 = contaApi.createUsingPOST1(conta1);
         System.out.println(conta1);
-        //contaInfos(conta1.getNome(),conta1.getId()); //Capturar os valores da Contas
         setContaInfo(conta1);
 
         /**
          * Criando o cartão 01 da conta 01
          */
-        cartao1.setNome("Dilmãe Rousseff");
+        cartao1.setNome("Stefano Tomei");
         cartao1.setSenha("123123098asd@");
         cartao1.setCvv("101");
         cartao1 = cartaoApi.createUsingPOST(conta1.getId(), cartao1);
-        //cartao1Infos(cartao1.getCvv(),cartao1.getId(),cartao1.getNome(),cartao1.getNumero(),cartao1.getSenha(),cartao1.getStatus());
         /**
          * Creditando R$ 300.00 no cartao1
          */
@@ -88,62 +92,71 @@ public class runAPI extends AppCompatActivity {
         cartao2.setSenha("123123098asd@");
         cartao2.setCvv("102");
         cartao2 = cartaoApi.createUsingPOST(conta1.getId(), cartao2);
-        //cartao2Infos(cartao2.getCvv(),cartao2.getId(),cartao2.getNome(),cartao2.getNumero(),cartao2.getSenha(),cartao2.getStatus());
         /**
          * Creditando R$ 100.00 no cartao2
          */
         cartaoApi.creditarUsingPUT(conta1.getId(), cartao2.getId(), 100.00);
         setCartao2Info(cartao2);
-        System.out.println("\n" + cartaoApi.getAllUsingGET(conta1.getId()));
+        System.out.println("\nCartão 1 " + cartaoApi.getAllUsingGET(conta1.getId()));
 
+        //------------------------------------FIM DA CONTA 1--------------------------------------
+        /**
+         * Criando conta 02
+         */
+        conta2.setNome("Monaci Card");
+        conta2 = contaApi.createUsingPOST1(conta2);
+        System.out.println(conta2);
+        setConta2Info(conta2);
+
+        /**
+         * Criando o cartão 03 da conta 02
+         */
+        cartao3.setNome("Anderson Frazão");
+        cartao3.setSenha("123123098asd@");
+        cartao3.setCvv("103");
+        cartao3 = cartaoApi.createUsingPOST(conta2.getId(), cartao3);
+        /**
+         * Creditando R$ 250.00 no cartao3
+         */
+        cartaoApi.creditarUsingPUT(conta2.getId(), cartao3.getId(), 250.00);
+        setCartao3Info(cartao3);
+        /**
+         * Criando o cartão 04 da conta 02
+         */
+        cartao4.setNome("Altair Pinto");
+        cartao4.setSenha("123123098asd@");
+        cartao4.setCvv("104");
+        cartao4 = cartaoApi.createUsingPOST(conta2.getId(), cartao4);
+        /**
+         * Creditando R$ 120.00 no cartao4
+         */
+        cartaoApi.creditarUsingPUT(conta2.getId(), cartao4.getId(), 120.00);
+        setCartao4Info(cartao4);
+        System.out.println("\nCartão 2 " + cartaoApi.getAllUsingGET(conta2.getId()));
     }
 
     // Get para os valores obtidos pela API
-    public ContaApi getContaApiInfos(){//(String access_token, String client_id, String BASE_PATH){
-        //ApiInvoker.getInstance().addDefaultHeader("access_token", access_token);
-        //ApiInvoker.getInstance().addDefaultHeader("client_id", client_id);
-        //contaApi.setBasePath(BASE_PATH);
-        return contaApi;}
-    public CartaoApi getCartaoApiInfos(){//(String access_token, String client_id, String BASE_PATH){
-        //ApiInvoker.getInstance().addDefaultHeader("access_token", access_token);
-        //ApiInvoker.getInstance().addDefaultHeader("client_id", client_id);
-        //cartaoApi.setBasePath(BASE_PATH);
-        return cartaoApi;}
-    public Conta getConta1Infos(){
-        System.out.println("CONTA 1 RECEBEU ID: "+conta1.getId());
-        return conta1; }
+    public ContaApi getContaApiInfos(){return contaApi;}
+    public CartaoApi getCartaoApiInfos(){return cartaoApi;}
+
+    public Conta getConta1Infos(){return conta1; }
     public Cartao getCartao1Infos(){return cartao1;}
     public Cartao getCartao2Infos(){return cartao2;}
+
+    public Conta getConta2Infos(){return conta2;}
+    public Cartao getCartao3Infos(){return cartao3;}
+    public Cartao getCartao4Infos(){return cartao4;}
 
     // Sets para os valores obtidos pela API
 
     public void setContaApiInfo(ContaApi contaApi){this.contaApi = contaApi;}
     public void setCartaoApiInfo(CartaoApi cartaoApi){this.cartaoApi = cartaoApi;}
+
     public void setContaInfo(Conta conta1){this.conta1 = conta1;}
     public void setCartao1Info(Cartao cartao1){this.cartao1 = cartao1;}
     public void setCartao2Info(Cartao cartao2){this.cartao2 = cartao2;}
 
-    /* public void contaInfos(String nome, Long id){
-        conta1.setNome(nome);
-        conta1.setId(id);
-     }*/
-    /*public void cartao1Infos(String cvv, Long id, String nome, String numero, String senha, Cartao.StatusEnum status){
-        cartao1.setCvv(cvv);
-        cartao1.setId(id);
-        cartao1.setNome(nome);
-        cartao1.setNumero(numero);
-        cartao1.setSenha(senha);
-        cartao1.setStatus(status);
-      }*/
-    /*public void cartao2Infos(String cvv, Long id, String nome, String numero, String senha, Cartao.StatusEnum status){
-        cartao2.setCvv(cvv);
-        cartao2.setId(id);
-        cartao2.setNome(nome);
-        cartao2.setNumero(numero);
-        cartao2.setSenha(senha);
-        cartao2.setStatus(status);
-    }*/
-
-
-
+    public void setConta2Info(Conta conta2){this.conta2 = conta2;}
+    public void setCartao3Info(Cartao cartao3){this.cartao3 = cartao3;}
+    public void setCartao4Info(Cartao cartao4){this.cartao4 = cartao4;}
 }

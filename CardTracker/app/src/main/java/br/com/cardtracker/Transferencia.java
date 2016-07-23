@@ -1,20 +1,18 @@
 package br.com.cardtracker;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.SmsManager;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.RadioButton;
+
+import java.util.List;
 
 import br.com.conductor.sdc.api.v1.CartaoApi;
 import br.com.conductor.sdc.api.v1.ContaApi;
@@ -25,31 +23,39 @@ import br.com.conductor.sdc.api.v1.model.Conta;
 
 public class Transferencia extends AppCompatActivity implements View.OnClickListener{
 
-    private Spinner nIDOrigem;
-    private Spinner nIDDestino;
+    private Button btnTransferencia;
 
-    private TextView Limites;
-    private TextView Extratos;
-
-    private Button btnGerarCodigo;
-    private Button btnValidar;
-
+    private EditText nIDConta;
+    private EditText nIDCartao;
     private EditText nValor;
-    private EditText nConfirmacao;
     private EditText nConta;
     private EditText nID;
 
+    private RadioButton radioButtonCartao1;
+    private RadioButton radioButtonCartao2;
+
     // Atributos API
     public runAPI runAPI = new runAPI();
-    public ContaApi contaApi = runAPI.getContaApiInfos();//("3BJU7WSdxYVy","VxUGXKTjnPCa","https://api.conductor.com.br/sdc");
-    public CartaoApi cartaoApi = runAPI.getCartaoApiInfos();//("3BJU7WSdxYVy","VxUGXKTjnPCa","https://api.conductor.com.br/sdc");
+    public ContaApi contaApi = runAPI.getContaApiInfos();
+    public CartaoApi cartaoApi = runAPI.getCartaoApiInfos();
+
     public Conta conta1 = runAPI.getConta1Infos();
     public Cartao cartao1 = runAPI.getCartao1Infos();
     public Cartao cartao2 = runAPI.getCartao2Infos();
 
-    public String selectID1;
-    public String selectID2;
+    public Conta conta2 = runAPI.getConta2Infos();
+    public Cartao cartao3 = runAPI.getCartao3Infos();
+    public Cartao cartao4 = runAPI.getCartao4Infos();
+
     public int SMSCode = 5530928;
+    public Double valor;
+    public Long IDContaVar;
+    public Long IDCartaoVar;
+    public int verifica;
+    public List<Cartao> getAPIFromText1;
+    public List<Cartao> getAPIFromText2;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,81 +67,36 @@ public class Transferencia extends AppCompatActivity implements View.OnClickList
             StrictMode.setThreadPolicy(policy);
         } //Thread não dar conflito
 
-        ActivityCompat.requestPermissions(this,new String[]{android.Manifest.permission.SEND_SMS},1);
-
-        Limites = (TextView) findViewById(R.id.Limites); // Campo para jogar os cartões existentes
-        Extratos = (TextView) findViewById(R.id.Extratos); // Campo para jogar os cartões existentes
+        //ActivityCompat.requestPermissions(this,new String[]{android.Manifest.permission.SEND_SMS},1);
 
         nValor = (EditText) findViewById(R.id.nValor);
-        nConfirmacao = (EditText) findViewById(R.id.nConfirmacao);
+        nIDConta = (EditText) findViewById(R.id.nIDConta);
+        nIDCartao = (EditText) findViewById(R.id.nIDCartao);
         nConta = (EditText) findViewById(R.id.nConta);
         nID = (EditText) findViewById(R.id.nID);
 
+        btnTransferencia = (Button) findViewById(R.id.btnTransferencia);
 
-        nIDOrigem = (Spinner) findViewById(R.id.nIDOrigem);
-        nIDDestino = (Spinner) findViewById(R.id.nIDDestino);
-
-        btnGerarCodigo = (Button) findViewById(R.id.btnGerarCodigo);
-        btnValidar = (Button) findViewById(R.id.btnValidar);
+        radioButtonCartao1 = (RadioButton) findViewById(R.id.radioButtonCartao1);
+        radioButtonCartao2 = (RadioButton) findViewById(R.id.radioButtonCartao2);
 
         nConta.setText(conta1.getNome());
         nID.setText(conta1.getId().toString());
+        System.out.println("TESTE "+cartao1.getNumero()+"\n"+cartao2.getNumero());
+        System.out.println("Contas TESTE "+conta1.getId()+"\n"+conta2.getId());
 
-        // Limite dos Cartões
         try {
+            getAPIFromText1 = cartaoApi.getAllUsingGET(conta1.getId()); // Pegar todos os cartões da conta
+            getAPIFromText2 = cartaoApi.getAllUsingGET(conta2.getId()); // Pegar todos os cartões da conta
+            radioButtonCartao1.setText(cartao1.getNumero());
+            radioButtonCartao2.setText(cartao2.getNumero());
+            System.out.println("TESTE 2 "+cartao1.getNumero()+"\n"+cartao2.getNumero());
 
-            Limites.setText("Cartão ID "+cartao1.getId()+" : "+cartaoApi.limiteUsingGET(conta1.getId(), cartao1.getId())+
-                            "\nCartão ID "+cartao2.getId()+" : "+cartaoApi.limiteUsingGET(conta1.getId(), cartao2.getId()));
         } catch (ApiException e) {
-            Limites.setText("Algum dos cartões está bloqueado. Para verificar apenas o Limite de um cartão, vá até a aba 'Cartões' - " + e);
+            System.out.println("Deu pau em Cartoes "+e);
         }
 
-        // Extrato dos Cartões
-        try {
-            Extratos.setText("Cartão ID "+cartao1.getId()+" : "+cartaoApi.extratosUsingPOST(conta1.getId(),cartao1.getId())+
-                            "\nCartão ID "+cartao2.getId()+" : "+cartaoApi.extratosUsingPOST(conta1.getId(),cartao2.getId()));
-        } catch (ApiException e) {
-            Extratos.setText("Algum dos cartões está bloqueado. Para verificar apenas o extrato de um cartão, vá até a aba 'Cartões' - " + e);
-        }
-
-        // Criando o Spinner para IDs
-        ArrayAdapter<Long> arrayAdapter = new ArrayAdapter<Long>(this, android.R.layout.simple_spinner_item);
-        final ArrayAdapter<Long> spinnerArrayAdapter = arrayAdapter;
-        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        nIDOrigem.setAdapter(spinnerArrayAdapter);
-        nIDDestino.setAdapter(spinnerArrayAdapter);
-        spinnerArrayAdapter.add(cartao1.getId());
-        spinnerArrayAdapter.add(cartao2.getId());
-
-        nIDOrigem.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            // Pegando ID a partir da posição selecionada
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectID1 = parent.getItemAtPosition(position).toString();
-                System.out.println("SelectedID1 inicial : " + selectID1);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                spinnerArrayAdapter.add(null);
-            }
-        }); //Fim do Spinner nIDOrigem
-
-        nIDDestino.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            // Pegando ID a partir da posição selecionada
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectID2 = parent.getItemAtPosition(position).toString();
-                System.out.println("SelectedID2 inicial : " + selectID2);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                spinnerArrayAdapter.add(null);
-            }
-        }); //Fim do Spinner nIDDestino
-
-        btnGerarCodigo.setOnClickListener(new View.OnClickListener() {
+        /*btnGerarCodigo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder dig = new AlertDialog.Builder(Transferencia.this);
@@ -146,61 +107,122 @@ public class Transferencia extends AppCompatActivity implements View.OnClickList
                 SmsManager smsManager = SmsManager.getDefault();
                 smsManager.sendTextMessage("+5583999887734", null, "Código de Confirmação: 5530928", null, null);
             }
-        }); // Fim Gera Código
+        }); // Fim Gera Código*/
 
-        btnValidar.setOnClickListener(this);
+        btnTransferencia.setOnClickListener(this);
 
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(final View v) {
+
         AlertDialog.Builder dig = new AlertDialog.Builder(Transferencia.this);
-
-        final Long getLongFromText1 = new Long(selectID1);
-        final Long getLongFromText2 = new Long(selectID2);
-        final Double getDoubleFromText = new Double(nValor.getText().toString());
-        final int nIntFromText = new Integer(nConfirmacao.getText().toString()).intValue();
-
-
-        if (nIntFromText == SMSCode){
-            try {
-                cartaoApi.transferirUsingPOST(conta1.getId(),getLongFromText1,getLongFromText2,getDoubleFromText);
-                dig.setTitle("Transferência efetuada com sucesso");
-                dig.setMessage("\nTransferência do Cartão ID " + getLongFromText1+" para o Cartão ID "+getLongFromText2 + " no valor de: R$"+getDoubleFromText);
-                dig.setNeutralButton("OK", null);
-                dig.show();
-                nValor.setText(null);
-            } catch (ApiException e) {
-                dig.setTitle("Erro");
-                dig.setMessage(""+e);
-                dig.setNeutralButton("Voltar", null);
-                dig.show();
-            }
-        }else{
+        //Tratamento dos campos
+        try{
+            valor = new Double(nValor.getText().toString());
+        }catch (NullPointerException n){
             dig.setTitle("Erro");
-            dig.setMessage("\nPreencha os campos corretamente");
-            dig.setNeutralButton("Voltar", null);
+            dig.setMessage("Preencha o valor da transferência");
+            dig.setPositiveButton("Voltar",null);
             dig.show();
         }
-        // Saída
+        //valor = new Integer(nValor.getText().toString());
 
-        // Limite dos Cartões
-        try {
-            Limites.setText("Cartão ID "+cartao1.getId()+" : "+cartaoApi.limiteUsingGET(conta1.getId(), cartao1.getId())+
-                    "\nCartão ID "+cartao2.getId()+" : "+cartaoApi.limiteUsingGET(conta1.getId(), cartao2.getId()));
-        } catch (ApiException e) {
-            Limites.setText("Algum dos cartões está bloqueado. Para verificar apenas o Limite de um cartão, vá até a aba 'Cartões' - " + e);
+        try{
+            IDCartaoVar = new Long(nIDCartao.getText().toString());
+        }catch (NullPointerException n){
+            dig.setTitle("Erro");
+            dig.setMessage("Preencha o ID do Cartão Destino");
+            dig.setPositiveButton("Voltar",null);
+            dig.show();
         }
-        // Extrato dos Cartões
-        try {
-            Extratos.setText("Cartão ID "+cartao1.getId()+" : "+cartaoApi.extratosUsingPOST(conta1.getId(),cartao1.getId())+
-                    "\nCartão ID "+cartao2.getId()+" : "+cartaoApi.extratosUsingPOST(conta1.getId(),cartao2.getId()));
-        } catch (ApiException e) {
-            Extratos.setText("Algum dos cartões está bloqueado. Para verificar apenas o extrato de um cartão, vá até a aba 'Cartões' - " + e);
-        }
-    }
+        //IDCartaoVar = new Long(nIDCartao.getText().toString());
 
-    public void onBackPressed(){
+        try{
+            IDContaVar = new Long(nIDConta.getText().toString());
+        }catch (NullPointerException n){
+            dig.setTitle("Erro");
+            dig.setMessage("Preencha o ID da Conta Destino");
+            dig.setPositiveButton("Voltar",null);
+            dig.show();
+        }
+        //IDContaVar = new Long(nIDConta.getText().toString());
+
+        if (radioButtonCartao1.isChecked()) {
+            System.out.println("Button checkado");
+            final int nIntFromText1 = new Integer(nIDConta.getText().toString()).intValue();
+            final int nIntFromText2 = new Integer(nIDCartao.getText().toString()).intValue();
+            if (nIntFromText1 == conta2.getId().intValue()) {
+                System.out.println("IDContaVar checkada");
+                if (nIntFromText2 == cartao3.getId().intValue()) {
+                    System.out.println("IDCartaoVar checkado");
+                    dig.setTitle("Transferir");
+                    dig.setMessage("Para: " + cartao3.getNome() + "\nValor: R$" + valor);
+                    dig.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            AlertDialog.Builder digsub = new AlertDialog.Builder(Transferencia.this);//Errado! Activity necessária
+                            startActivity(new Intent(Transferencia.this,LoginFragment.class));
+                            LoginFragment loginFragment = new LoginFragment();
+                            verifica = loginFragment.getPress();
+                            System.out.println("Valor de Verifica :"+verifica);
+                            if(verifica==1) {
+                            try {
+                                cartaoApi.transferirUsingPOST(conta1.getId(), cartao1.getId(), IDCartaoVar, valor);
+                                digsub.setTitle("Transferido");
+                                digsub.setMessage("\nDe: "+cartao1.getNome()+" Cartão de ID: "+ cartao1.getId()+
+                                                    "\nPara: "+cartao3.getNome()+" Cartão ID: +"+cartao3.getId()+
+                                                    "\nValor: R$"+valor);
+                                digsub.setPositiveButton("OK", null);
+                                digsub.show();
+                            } catch (ApiException e) {
+                                System.out.println(e);
+                            }
+                            }
+                        }
+                    }); // Fim do Positive Button 1
+                    dig.setNegativeButton("Cancelar", null);
+                    dig.show();
+                }
+            }
+        }
+        if(radioButtonCartao2.isChecked()){
+            if(cartao2.getStatus()==Cartao.StatusEnum.BLOQUEADO){
+                dig.setTitle("Erro");
+                dig.setMessage("Cartão "+cartao2.getNumero()+" já está bloqueado");
+                dig.setPositiveButton("Voltar",null);
+                dig.show();
+            }else if(cartao2.getStatus()==Cartao.StatusEnum.CANCELADO){
+                dig.setTitle("Erro");
+                dig.setMessage("Cartão "+cartao2.getNumero()+" está cancelado");
+                dig.setPositiveButton("Voltar",null);
+                dig.show();
+            }else {
+                dig.setTitle("Confirmação");
+                dig.setMessage("Confirmar bloqueio do cartão " + cartao2.getNumero() + " ?");
+                dig.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        AlertDialog.Builder digsub = new AlertDialog.Builder(Transferencia.this);
+                        try {
+                            cartaoApi.bloquearUsingPUT(conta1.getId(), cartao2.getId());
+                            cartao2.setStatus(Cartao.StatusEnum.BLOQUEADO);
+                            digsub.setTitle("Bloqueado");
+                            digsub.setMessage("\nCartão de ID " + cartao2.getId() + " bloqueado com sucesso!");
+                            digsub.setPositiveButton("OK", null);
+                            digsub.show();
+                        } catch (ApiException e) {
+                            System.out.println(e);
+                        }
+                    }
+                }); // Fim do Positive Button 2
+                dig.setNegativeButton("Não", null);
+                dig.show();
+            }// Fim do Else Button 2
+        }// Fim do If Button 2
+    }//Saída
+
+public void onBackPressed(){
         Intent it = new Intent(this, Menu.class);
         startActivity(it);
     }
