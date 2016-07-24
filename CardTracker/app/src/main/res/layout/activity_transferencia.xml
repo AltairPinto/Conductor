@@ -10,7 +10,9 @@
     android:background="@drawable/bg"
     tools:context="br.com.cardtracker.Transferencia">
 
-
+    <LinearLayout android:focusable="true"
+        android:focusableInTouchMode="true" android:layout_width="0px"
+        android:layout_height="0px" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -142,7 +144,8 @@
                     android:text="@string/nCartao1"
                     android:textColorHighlight="@color/colorPrimaryDark"
                     android:layout_marginTop="20px"
-                    android:textColor="@color/common_google_signin_btn_text_dark"/>
+                    android:textColor="@color/common_google_signin_btn_text_dark"
+                    android:buttonTint="#CDCDCD"/>
 
                 <RadioButton
                     android:layout_width="wrap_content"
@@ -155,7 +158,9 @@
                     android:text="@string/nCartao2"
                     android:textColorHighlight="@color/colorPrimaryDark"
                     android:layout_marginTop="60px"
-                    android:textColor="@color/common_google_signin_btn_text_dark" />
+                    android:textColor="@color/common_google_signin_btn_text_dark"
+                    android:backgroundTint="#CDCDCD"
+                    android:buttonTint="#CDCDCD" />
             </RadioGroup>
 
             <TextView
@@ -166,8 +171,10 @@
                 android:id="@+id/textView12"
                 android:layout_below="@+id/radioGroup"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="30px"
                 android:textColorHighlight="@color/colorPrimaryDark"
                 android:textColor="@color/common_google_signin_btn_text_dark"/>
+
 
             <EditText
                 android:layout_width="wrap_content"
@@ -179,7 +186,8 @@
                 android:layout_alignStart="@+id/textView44"
                 android:layout_alignEnd="@+id/textView44"
                 android:textColorHighlight="@color/colorPrimaryDark"
-                android:textColor="#CDCDCD"/>
+                android:textColor="#CDCDCD"
+                android:backgroundTint="#CDCDCD" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -215,7 +223,8 @@
                 android:textColor="#CDCDCD"
                 android:layout_marginLeft="20px"
                 android:layout_below="@+id/textView15"
-                android:layout_toStartOf="@+id/nValor" />
+                android:layout_toStartOf="@+id/nValor"
+                android:backgroundTint="#CDCDCD" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -238,7 +247,8 @@
                 android:textColor="#CDCDCD"
                 android:layout_alignTop="@+id/nIDConta"
                 android:layout_toEndOf="@+id/btnTransferencia"
-                android:layout_marginLeft="40px"/>
+                android:layout_marginLeft="40px"
+                android:backgroundTint="#CDCDCD" />
 
             <TextView
                 android:layout_width="wrap_content"

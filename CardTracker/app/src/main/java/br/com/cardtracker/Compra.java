@@ -20,6 +20,7 @@ import br.com.conductor.sdc.api.v1.ContaApi;
 import br.com.conductor.sdc.api.v1.invoker.ApiException;
 import br.com.conductor.sdc.api.v1.model.Cartao;
 import br.com.conductor.sdc.api.v1.model.Conta;
+import br.com.conductor.sdc.api.v1.model.Limite;
 
 
 public class Compra extends AppCompatActivity implements View.OnClickListener {
@@ -80,6 +81,8 @@ public class Compra extends AppCompatActivity implements View.OnClickListener {
         try {
             Limites.setText("Cartão ID "+cartao1.getId()+" : "+cartaoApi.limiteUsingGET(conta1.getId(), cartao1.getId())+
                     "\nCartão ID "+cartao2.getId()+" : "+cartaoApi.limiteUsingGET(conta1.getId(), cartao2.getId()));
+            Limite limite = (cartaoApi.limiteUsingGET(conta1.getId(), cartao1.getId()));
+            System.out.println(limite.getValor()); //FUNCIONOU
         } catch (ApiException e) {
             Limites.setText("Algum dos cartões está bloqueado. Para verificar apenas o Limite de um cartão, vá até a aba 'Cartões' - " + e);
         }

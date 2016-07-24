@@ -164,7 +164,8 @@
                     android:text="@string/nCartao1"
                     android:textColorHighlight="@color/colorPrimaryDark"
                     android:layout_marginTop="20px"
-                    android:textColor="@color/common_google_signin_btn_text_dark"/>
+                    android:textColor="@color/common_google_signin_btn_text_dark"
+                    android:buttonTint="#CDCDCD" />
 
                 <RadioButton
                     android:layout_width="wrap_content"
@@ -177,7 +178,8 @@
                     android:text="@string/nCartao2"
                     android:textColorHighlight="@color/colorPrimaryDark"
                     android:layout_marginTop="70px"
-                    android:textColor="@color/common_google_signin_btn_text_dark" />
+                    android:textColor="@color/common_google_signin_btn_text_dark"
+                    android:buttonTint="#CDCDCD" />
             </RadioGroup>
 
         </RelativeLayout>

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -49,13 +50,14 @@ public class Transferencia extends AppCompatActivity implements View.OnClickList
 
     public int SMSCode = 5530928;
     public Double valor;
+    public Long IDCartaoOrg;
+    public Long IDContaOrg;
+    public String NomeCartaoOrg;
     public Long IDContaVar;
     public Long IDCartaoVar;
-    public int verifica;
+    public String NomeCartaoVar;
     public List<Cartao> getAPIFromText1;
     public List<Cartao> getAPIFromText2;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,32 +84,17 @@ public class Transferencia extends AppCompatActivity implements View.OnClickList
 
         nConta.setText(conta1.getNome());
         nID.setText(conta1.getId().toString());
-        System.out.println("TESTE "+cartao1.getNumero()+"\n"+cartao2.getNumero());
-        System.out.println("Contas TESTE "+conta1.getId()+"\n"+conta2.getId());
 
+        System.out.println("TESTE "+conta2.getId()+"\n"+cartao3.getId());
         try {
             getAPIFromText1 = cartaoApi.getAllUsingGET(conta1.getId()); // Pegar todos os cartões da conta
             getAPIFromText2 = cartaoApi.getAllUsingGET(conta2.getId()); // Pegar todos os cartões da conta
             radioButtonCartao1.setText(cartao1.getNumero());
             radioButtonCartao2.setText(cartao2.getNumero());
-            System.out.println("TESTE 2 "+cartao1.getNumero()+"\n"+cartao2.getNumero());
 
         } catch (ApiException e) {
             System.out.println("Deu pau em Cartoes "+e);
         }
-
-        /*btnGerarCodigo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder dig = new AlertDialog.Builder(Transferencia.this);
-                dig.setTitle("Enviando Código de Confirmação");
-                dig.setMessage("\nCódigo enviado via SMS para o número: +5583999887734");
-                dig.setNeutralButton("OK", null);
-                dig.show();
-                SmsManager smsManager = SmsManager.getDefault();
-                smsManager.sendTextMessage("+5583999887734", null, "Código de Confirmação: 5530928", null, null);
-            }
-        }); // Fim Gera Código*/
 
         btnTransferencia.setOnClickListener(this);
 
@@ -120,105 +107,224 @@ public class Transferencia extends AppCompatActivity implements View.OnClickList
         //Tratamento dos campos
         try{
             valor = new Double(nValor.getText().toString());
-        }catch (NullPointerException n){
+        }catch (NumberFormatException n){
             dig.setTitle("Erro");
             dig.setMessage("Preencha o valor da transferência");
             dig.setPositiveButton("Voltar",null);
             dig.show();
         }
-        //valor = new Integer(nValor.getText().toString());
 
         try{
             IDCartaoVar = new Long(nIDCartao.getText().toString());
-        }catch (NullPointerException n){
+        }catch (NumberFormatException n){
             dig.setTitle("Erro");
             dig.setMessage("Preencha o ID do Cartão Destino");
             dig.setPositiveButton("Voltar",null);
             dig.show();
         }
-        //IDCartaoVar = new Long(nIDCartao.getText().toString());
 
         try{
             IDContaVar = new Long(nIDConta.getText().toString());
-        }catch (NullPointerException n){
+        }catch (NumberFormatException n){
             dig.setTitle("Erro");
             dig.setMessage("Preencha o ID da Conta Destino");
             dig.setPositiveButton("Voltar",null);
             dig.show();
         }
-        //IDContaVar = new Long(nIDConta.getText().toString());
-
+        /*/ Tratamento de Dados Inválidos
+        /if(IDContaVar!=cartao2.getId()){
+            dig.setTitle("Erro");
+            dig.setMessage("Conta inválida");
+            dig.setPositiveButton("Voltar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    nIDConta.setText(null);
+                }
+            });
+            dig.show();
+        }
+        if(IDCartaoVar!=cartao3.getId() || IDCartaoVar!=cartao4.getId()){
+            dig.setTitle("Erro");
+            dig.setMessage("Cartão inválido");
+            dig.setPositiveButton("Voltar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    nIDCartao.setText(null);
+                }
+            });
+            dig.show();
+        }
+        */
+        // Tratamento dos cartões selecionados
         if (radioButtonCartao1.isChecked()) {
             System.out.println("Button checkado");
-            final int nIntFromText1 = new Integer(nIDConta.getText().toString()).intValue();
-            final int nIntFromText2 = new Integer(nIDCartao.getText().toString()).intValue();
-            if (nIntFromText1 == conta2.getId().intValue()) {
+            IDContaOrg = conta1.getId();
+            IDCartaoOrg = cartao1.getId();
+            NomeCartaoOrg = cartao1.getNome();
+            if (IDContaVar == conta2.getId().longValue()) {
                 System.out.println("IDContaVar checkada");
-                if (nIntFromText2 == cartao3.getId().intValue()) {
+                if (IDCartaoVar == cartao3.getId().longValue()) {
+                    NomeCartaoVar = cartao3.getNome();
                     System.out.println("IDCartaoVar checkado");
                     dig.setTitle("Transferir");
-                    dig.setMessage("Para: " + cartao3.getNome() + "\nValor: R$" + valor);
+                    dig.setMessage("Para: " + NomeCartaoVar + "\nValor: R$" + valor);
                     dig.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            AlertDialog.Builder digsub = new AlertDialog.Builder(Transferencia.this);//Errado! Activity necessária
-                            startActivity(new Intent(Transferencia.this,LoginFragment.class));
-                            LoginFragment loginFragment = new LoginFragment();
-                            verifica = loginFragment.getPress();
-                            System.out.println("Valor de Verifica :"+verifica);
-                            if(verifica==1) {
-                            try {
-                                cartaoApi.transferirUsingPOST(conta1.getId(), cartao1.getId(), IDCartaoVar, valor);
-                                digsub.setTitle("Transferido");
-                                digsub.setMessage("\nDe: "+cartao1.getNome()+" Cartão de ID: "+ cartao1.getId()+
-                                                    "\nPara: "+cartao3.getNome()+" Cartão ID: +"+cartao3.getId()+
-                                                    "\nValor: R$"+valor);
-                                digsub.setPositiveButton("OK", null);
-                                digsub.show();
-                            } catch (ApiException e) {
-                                System.out.println(e);
-                            }
-                            }
+                            AlertDialog.Builder dig = new AlertDialog.Builder(Transferencia.this);
+
+                            dig.setTitle("Enviando Código de Confirmação");
+                            dig.setMessage("\nCódigo enviado via SMS para o número: +5583999887734");
+                            dig.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Bundle params = new Bundle();
+                                    params.putDouble("valor",valor);
+                                    params.putLong("IDContaOrg",IDContaOrg);
+                                    params.putLong("IDCartaoOrg",IDCartaoOrg);
+                                    params.putString("NomeCartaoOrg",NomeCartaoOrg);
+                                    params.putLong("IDCartaoOrg",IDCartaoOrg);
+                                    params.putLong("IDCartaoVar",IDCartaoVar);
+                                    params.putString("NomeCartaoVar",NomeCartaoVar);
+
+                                    Intent intent = new Intent(Transferencia.this,PopTransferencia.class);
+                                    intent.putExtras(params);
+
+                                    startActivity(intent);//ou if result
+                                }
+                            });
+                            dig.show();
+                            SmsManager smsManager = SmsManager.getDefault();
+                            smsManager.sendTextMessage("+5583999887734", null, "Código de Confirmação: 5530928", null, null);
                         }
                     }); // Fim do Positive Button 1
                     dig.setNegativeButton("Cancelar", null);
                     dig.show();
-                }
-            }
-        }
-        if(radioButtonCartao2.isChecked()){
-            if(cartao2.getStatus()==Cartao.StatusEnum.BLOQUEADO){
-                dig.setTitle("Erro");
-                dig.setMessage("Cartão "+cartao2.getNumero()+" já está bloqueado");
-                dig.setPositiveButton("Voltar",null);
-                dig.show();
-            }else if(cartao2.getStatus()==Cartao.StatusEnum.CANCELADO){
-                dig.setTitle("Erro");
-                dig.setMessage("Cartão "+cartao2.getNumero()+" está cancelado");
-                dig.setPositiveButton("Voltar",null);
-                dig.show();
-            }else {
-                dig.setTitle("Confirmação");
-                dig.setMessage("Confirmar bloqueio do cartão " + cartao2.getNumero() + " ?");
-                dig.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        AlertDialog.Builder digsub = new AlertDialog.Builder(Transferencia.this);
-                        try {
-                            cartaoApi.bloquearUsingPUT(conta1.getId(), cartao2.getId());
-                            cartao2.setStatus(Cartao.StatusEnum.BLOQUEADO);
-                            digsub.setTitle("Bloqueado");
-                            digsub.setMessage("\nCartão de ID " + cartao2.getId() + " bloqueado com sucesso!");
-                            digsub.setPositiveButton("OK", null);
-                            digsub.show();
-                        } catch (ApiException e) {
-                            System.out.println(e);
+                }// Fim do if Cartão 3
+                if (IDCartaoVar == cartao4.getId().longValue()) {
+                    NomeCartaoVar = cartao4.getNome();
+                    System.out.println("IDCartaoVar checkado");
+                    dig.setTitle("Transferir");
+                    dig.setMessage("Para: " + NomeCartaoVar + "\nValor: R$" + valor);
+                    dig.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            AlertDialog.Builder dig = new AlertDialog.Builder(Transferencia.this);
+
+                            dig.setTitle("Enviando Código de Confirmação");
+                            dig.setMessage("\nCódigo enviado via SMS para o número: +5583999887734");
+                            dig.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Bundle params = new Bundle();
+                                    params.putDouble("valor",valor);
+                                    params.putLong("IDContaOrg",IDContaOrg);
+                                    params.putLong("IDCartaoOrg",IDCartaoOrg);
+                                    params.putString("NomeCartaoOrg",NomeCartaoOrg);
+                                    params.putLong("IDCartaoOrg",IDCartaoOrg);
+                                    params.putLong("IDCartaoVar",IDCartaoVar);
+                                    params.putString("NomeCartaoVar",NomeCartaoVar);
+
+                                    Intent intent = new Intent(Transferencia.this,PopTransferencia.class);
+                                    intent.putExtras(params);
+
+                                    startActivity(intent);//ou if result
+                                }
+                            });
+                            dig.show();
+                            SmsManager smsManager = SmsManager.getDefault();
+                            smsManager.sendTextMessage("+5583999887734", null, "Código de Confirmação: 5530928", null, null);
                         }
-                    }
-                }); // Fim do Positive Button 2
-                dig.setNegativeButton("Não", null);
-                dig.show();
-            }// Fim do Else Button 2
+                    }); // Fim do Positive Button 1
+                    dig.setNegativeButton("Cancelar", null);
+                    dig.show();
+                }//Fim do if Cartão 4
+            }//Fim do if Conta 2
+        }//Fim do cartão 1
+
+        if(radioButtonCartao2.isChecked()){
+            IDContaOrg = conta1.getId();
+            IDCartaoOrg = cartao2.getId();
+            NomeCartaoOrg = cartao2.getNome();
+            if (IDContaVar == conta2.getId().longValue()) {
+                System.out.println("IDContaVar checkada");
+                if (IDCartaoVar == cartao3.getId().longValue()) {
+                    NomeCartaoVar = cartao3.getNome();
+                    System.out.println("IDCartaoVar checkado");
+                    dig.setTitle("Transferir");
+                    dig.setMessage("Para: " + NomeCartaoVar + "\nValor: R$" + valor);
+                    dig.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            AlertDialog.Builder dig = new AlertDialog.Builder(Transferencia.this);
+
+                            dig.setTitle("Enviando Código de Confirmação");
+                            dig.setMessage("\nCódigo enviado via SMS para o número: +5583999887734");
+                            dig.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Bundle params = new Bundle();
+                                    params.putDouble("valor",valor);
+                                    params.putLong("IDContaOrg",IDContaOrg);
+                                    params.putLong("IDCartaoOrg",IDCartaoOrg);
+                                    params.putString("NomeCartaoOrg",NomeCartaoOrg);
+                                    params.putLong("IDCartaoOrg",IDCartaoOrg);
+                                    params.putLong("IDCartaoVar",IDCartaoVar);
+                                    params.putString("NomeCartaoVar",NomeCartaoVar);
+
+                                    Intent intent = new Intent(Transferencia.this,PopTransferencia.class);
+                                    intent.putExtras(params);
+
+                                    startActivity(intent);//ou if result
+                                }
+                            });
+                            dig.show();
+                            SmsManager smsManager = SmsManager.getDefault();
+                            smsManager.sendTextMessage("+5583999887734", null, "Código de Confirmação: 5530928", null, null);
+                        }
+                    }); // Fim do Positive Button 1
+                    dig.setNegativeButton("Cancelar", null);
+                    dig.show();
+                }// Fim do if Cartão 3
+                if (IDCartaoVar == cartao4.getId().longValue()) {
+                    NomeCartaoVar = cartao4.getNome();
+                    System.out.println("IDCartaoVar checkado");
+                    dig.setTitle("Transferir");
+                    dig.setMessage("Para: " + NomeCartaoVar + "\nValor: R$" + valor);
+                    dig.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            AlertDialog.Builder dig = new AlertDialog.Builder(Transferencia.this);
+
+                            dig.setTitle("Enviando Código de Confirmação");
+                            dig.setMessage("\nCódigo enviado via SMS para o número: +5583999887734");
+                            dig.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Bundle params = new Bundle();
+                                    params.putDouble("valor",valor);
+                                    params.putLong("IDContaOrg",IDContaOrg);
+                                    params.putLong("IDCartaoOrg",IDCartaoOrg);
+                                    params.putString("NomeCartaoOrg",NomeCartaoOrg);
+                                    params.putLong("IDCartaoOrg",IDCartaoOrg);
+                                    params.putLong("IDCartaoVar",IDCartaoVar);
+                                    params.putString("NomeCartaoVar",NomeCartaoVar);
+
+                                    Intent intent = new Intent(Transferencia.this,PopTransferencia.class);
+                                    intent.putExtras(params);
+
+                                    startActivity(intent);//ou if result
+                                }
+                            });
+                            dig.show();
+                            SmsManager smsManager = SmsManager.getDefault();
+                            smsManager.sendTextMessage("+5583999887734", null, "Código de Confirmação: 5530928", null, null);
+                        }
+                    }); // Fim do Positive Button 1
+                    dig.setNegativeButton("Cancelar", null);
+                    dig.show();
+                }//Fim do if Cartão 4
+            }//Fim do if Conta 2
         }// Fim do If Button 2
     }//Saída
 

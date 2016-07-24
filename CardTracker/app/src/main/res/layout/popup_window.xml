@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/icon">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Digite o Código de Verificação"
+        android:id="@+id/textView11"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="67dp"
+        android:textColorHighlight="@color/colorPrimaryDark"
+        android:textColor="@color/common_google_signin_btn_text_dark"/>
+
+    <Button
+        android:layout_width="160px"
+        android:layout_height="70px"
+        android:text="Ok"
+        android:id="@+id/btnOk"
+        android:layout_marginTop="85dp"
+        android:background="@drawable/screen_border"
+        android:textColor="#CDCDCD"
+        android:layout_marginLeft="100px"
+        android:layout_below="@+id/textView11"/>
+
+    <Button
+        android:layout_width="160px"
+        android:layout_height="70px"
+        android:text="Cancelar"
+        android:textAlignment="center"
+        android:id="@+id/btnCancelar"
+        android:background="@drawable/screen_border"
+        android:textColor="#CDCDCD"
+        android:layout_alignTop="@+id/btnOk"
+        android:layout_alignLeft="@+id/btnOk"
+        android:layout_marginLeft="200px"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="1"
+        android:id="@+id/editText"
+        android:layout_below="@+id/textView11"
+        android:layout_alignStart="@+id/btnOk"
+        android:layout_marginTop="40px"
+        android:layout_alignEnd="@+id/btnCancelar"
+        android:textColor="#CDCDCD"
+        android:backgroundTint="#CDCDCD" />
+</RelativeLayout>
