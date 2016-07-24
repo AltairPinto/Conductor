@@ -1,5 +1,6 @@
 package br.com.cardtracker;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -42,7 +43,10 @@ public class runAPI extends AppCompatActivity {
             StrictMode.setThreadPolicy(policy);
         } //Thread não dar conflito
 
-        ActivityCompat.requestPermissions(this,new String[]{android.Manifest.permission.SEND_SMS},1);
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.SEND_SMS},1);
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_NETWORK_STATE},1);
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},1);
 
         try {
             runAPI(cartaoApi,contaApi,conta1,cartao1,cartao2,conta2,cartao3,cartao4,access_token,client_id,BASE_PATH);

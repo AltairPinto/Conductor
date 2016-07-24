@@ -10,23 +10,26 @@
     android:background="@drawable/bg"
     tools:context="br.com.cardtracker.Compra">
 
+    <LinearLayout android:focusable="true"
+        android:focusableInTouchMode="true" android:layout_width="0px"
+        android:layout_height="0px" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Conta"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="ID"
         android:id="@+id/textView2"
         android:textColorHighlight="@color/colorPrimaryDark"
         android:textColor="@color/common_google_signin_btn_text_dark"
-        android:layout_alignLeft="@+id/nConta"/>
+        android:layout_alignLeft="@+id/nID"/>
 
     <EditText
-        android:layout_width="380px"
+        android:layout_width="150px"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:layout_marginLeft="20px"
         android:ems="10"
-        android:id="@+id/nConta"
+        android:id="@+id/nID"
         android:text="@string/nConta"
         android:visibility="visible"
         android:clickable="false"
@@ -41,17 +44,17 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="ID"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Conta"
         android:id="@+id/textView3"
         android:textColorHighlight="@color/colorPrimaryDark"
         android:textColor="@color/common_google_signin_btn_text_dark"
-        android:layout_alignLeft="@+id/nID"/>
+        android:layout_alignLeft="@+id/nConta"/>
 
     <EditText
         android:layout_width="200px"
         android:layout_height="wrap_content"
-        android:id="@+id/nID"
+        android:id="@+id/nConta"
         android:layout_below="@+id/textView3"
         android:layout_alignParentStart="true"
         android:layout_toStartOf="@+id/textView2"
@@ -63,7 +66,7 @@
         android:cursorVisible="false"
         android:focusable="false"
         android:focusableInTouchMode="false"
-        android:layout_marginLeft="440px"
+        android:layout_marginLeft="250px"
         android:layout_alignParentEnd="true" />
 
     <TextView
@@ -74,7 +77,8 @@
         android:id="@+id/textView17"
         android:textColorHighlight="@color/colorPrimaryDark"
         android:textColor="@color/common_google_signin_btn_text_dark"
-        android:layout_marginTop="190px"
+        android:layout_below="@+id/nConta"
+        android:layout_marginTop="20px"
         android:layout_centerHorizontal="true" />
 
     <!--Scroll para as duas Áreas-->
@@ -82,26 +86,17 @@
     <!--Scroll para os cartões-->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="750px"
+        android:layout_height="850px"
         android:layout_marginTop="250px"
         android:id="@+id/scrollView">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="760px"
+            android:layout_height="900px"
             android:id="@+id/relativeLayout"
             >
 
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/Limites"
-                android:textColorHighlight="@color/colorPrimaryDark"
-                android:textColor="@color/common_google_signin_btn_text_dark"
-                android:layout_marginTop="10px"
-                />
             <!--Informações para alteração-->
 
 
@@ -109,121 +104,130 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Selecione o Cartão (ID)"
+                android:text="Selecione um Cartão"
                 android:id="@+id/textView44"
-                android:layout_below="@+id/Limites"
-                android:layout_marginBottom="20px"
                 android:textColorHighlight="@color/colorPrimaryDark"
                 android:textColor="@color/common_google_signin_btn_text_dark"
-                android:layout_marginTop="20px"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="40px"/>
+
+
+            <Button
+                android:id="@+id/btnComprar"
+                android:layout_width="wrap_content"
+                android:layout_height="70px"
+                android:text="Comprar"
+                android:background="@drawable/screen_border"
+                android:textColorHighlight="@color/colorPrimaryDark"
+                android:textColor="#CDCDCD"
+                android:layout_below="@+id/nDestino"
+                android:layout_marginLeft="250px"
+                android:layout_marginTop="40dp"
                 android:layout_centerHorizontal="true" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="ID do Cartão"
-                android:id="@+id/textView444"
-                android:textColorHighlight="@color/colorPrimaryDark"
-                android:textColor="@color/common_google_signin_btn_text_dark"
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_below="@+id/textView44"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="20px"
-                android:layout_marginLeft="40px"/>
+                android:layout_marginTop="20dp"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/radioGroup">
 
-            <Spinner
-                android:layout_width="200px"
-                android:layout_height="100px"
-                android:inputType="number"
-                android:text=""
-                android:ems="10"
-                android:id="@+id/nIDSpinner"
-                android:layout_below="@+id/textView444"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="20px"
-                android:layout_marginLeft="60px"
-                android:textColor="#D3D3D3"
-                android:textColorHighlight="@color/colorPrimaryDark"
-                android:spinnerMode="dropdown"
-                android:background="@drawable/icon"/>
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:id="@+id/radioButtonCartao1"
+                    android:layout_below="@+id/textView44"
+                    android:layout_alignParentStart="true"
+                    android:checked="false"
+                    android:text="@string/nCartao1"
+                    android:textColorHighlight="@color/colorPrimaryDark"
+                    android:layout_marginTop="20px"
+                    android:textColor="@color/common_google_signin_btn_text_dark"
+                    android:buttonTint="#CDCDCD"/>
 
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:id="@+id/radioButtonCartao2"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"
+                    android:checked="false"
+                    android:text="@string/nCartao2"
+                    android:textColorHighlight="@color/colorPrimaryDark"
+                    android:layout_marginTop="60px"
+                    android:textColor="@color/common_google_signin_btn_text_dark"
+                    android:backgroundTint="#CDCDCD"
+                    android:buttonTint="#CDCDCD" />
+            </RadioGroup>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Valor (R$)"
-                android:id="@+id/textView4"
+                android:text="Valor"
+                android:id="@+id/textView12"
                 android:textColorHighlight="@color/colorPrimaryDark"
                 android:textColor="@color/common_google_signin_btn_text_dark"
-                android:layout_marginLeft="40px"
-                android:layout_above="@+id/nIDSpinner"
-                android:layout_alignStart="@+id/nValor" />
+                android:layout_below="@+id/radioGroup"
+                android:layout_toEndOf="@+id/textView14"
+                android:layout_marginLeft="20px"
+                android:layout_marginTop="40px"/>
+
 
             <EditText
-                android:layout_width="220px"
-                android:layout_height="90px"
+                android:layout_width="150px"
+                android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
                 android:ems="10"
                 android:id="@+id/nValor"
-                android:textColor="#D3D3D3"
-                android:text="@string/nValor"
-                android:layout_alignBottom="@+id/nIDSpinner"
-                android:layout_alignLeft="@+id/nIDNovo"
-                android:layout_marginLeft="400px"/>
+                android:textColorHighlight="@color/colorPrimaryDark"
+                android:textColor="#CDCDCD"
+                android:backgroundTint="#CDCDCD"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_marginLeft="50px"
+                android:layout_below="@+id/textView12"/>
 
-            <EditText
-                android:layout_width="200px"
-                android:layout_height="90px"
-                android:inputType="numberPassword"
-                android:ems="10"
-                android:id="@+id/nConfirmacao"
-                android:textColor="#D3D3D3"
-                android:text="@string/nConfirmacao"
-                android:layout_marginLeft="20px"
-                android:layout_below="@+id/textView16"
-                android:layout_alignEnd="@+id/btnGerarCodigo"
-                android:layout_alignStart="@+id/btnGerarCodigo" />
-
-            <Button
-                android:id="@+id/btnValidar"
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="75px"
-                android:text="Validar Compra"
-                android:background="@drawable/icon"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="R$"
+                android:id="@+id/textView14"
                 android:textColorHighlight="@color/colorPrimaryDark"
                 android:textColor="@color/common_google_signin_btn_text_dark"
-                android:layout_marginTop="10px"
-                android:layout_marginLeft="420px"
-                android:layout_below="@+id/nConfirmacao"
-                android:layout_centerHorizontal="true" />
-
-            <Button
-                android:id="@+id/btnGerarCodigo"
-                android:layout_width="wrap_content"
-                android:layout_height="70px"
-                android:text="Gerar Código de Confirmação"
-                android:background="@drawable/icon"
-                android:textColorHighlight="@color/colorPrimaryDark"
-                android:textColor="@color/common_google_signin_btn_text_dark"
-                android:layout_marginLeft="220px"
-                android:layout_marginTop="60px"
-                android:layout_below="@+id/nIDSpinner"
-                android:layout_centerHorizontal="true" />
+                android:layout_alignBottom="@+id/nValor"
+                android:layout_marginBottom="10px"
+                android:layout_alignParentStart="true" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Código de Confirmação"
+                android:text="Destino"
                 android:id="@+id/textView16"
                 android:textColorHighlight="@color/colorPrimaryDark"
                 android:textColor="@color/common_google_signin_btn_text_dark"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20px"
-                android:layout_below="@+id/btnGerarCodigo"
-                android:layout_alignEnd="@+id/textView44" />
+                android:layout_alignTop="@+id/textView12"
+                android:layout_alignStart="@+id/btnComprar" />
 
+            <EditText
+                android:layout_width="420px"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:inputType="textPersonName"
+                android:text=""
+                android:ems="10"
+                android:id="@+id/nDestino"
+                android:layout_alignTop="@+id/nValor"
+                android:layout_alignStart="@+id/textView16"
+                android:textColorHighlight="@color/colorPrimaryDark"
+                android:textColor="#CDCDCD"
+                android:backgroundTint="#CDCDCD"
+                android:layout_marginTop="10px"/>
 
         </RelativeLayout>
     </ScrollView>
@@ -231,3 +235,4 @@
 
 
 </RelativeLayout> <!--Layout dos Botões-->
+

@@ -182,24 +182,28 @@
                 android:inputType="numberDecimal"
                 android:ems="10"
                 android:id="@+id/nValor"
-                android:layout_below="@+id/textView12"
-                android:layout_alignStart="@+id/textView44"
-                android:layout_alignEnd="@+id/textView44"
                 android:textColorHighlight="@color/colorPrimaryDark"
+                android:layout_centerHorizontal="true"
                 android:textColor="#CDCDCD"
-                android:backgroundTint="#CDCDCD" />
+                android:backgroundTint="#CDCDCD"
+                android:layout_below="@+id/textView12"
+                android:layout_alignStart="@+id/btnTransferencia"
+                android:layout_alignEnd="@+id/btnTransferencia"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_marginLeft="30px"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:layout_marginTop="20px"
                 android:text="R$"
                 android:id="@+id/textView14"
-                android:layout_alignTop="@+id/nValor"
-                android:layout_toStartOf="@+id/nValor"
                 android:textColorHighlight="@color/colorPrimaryDark"
-                android:textColor="@color/common_google_signin_btn_text_dark"/>
+                android:textColor="@color/common_google_signin_btn_text_dark"
+                android:layout_alignBottom="@+id/nValor"
+                android:layout_alignEnd="@+id/textView15"
+                android:layout_marginBottom="10px"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -222,9 +226,12 @@
                 android:textColorHighlight="@color/colorPrimaryDark"
                 android:textColor="#CDCDCD"
                 android:layout_marginLeft="20px"
+                android:backgroundTint="#CDCDCD"
                 android:layout_below="@+id/textView15"
-                android:layout_toStartOf="@+id/nValor"
-                android:backgroundTint="#CDCDCD" />
+                android:layout_toStartOf="@+id/textView14"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textAlignment="center"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -248,7 +255,10 @@
                 android:layout_alignTop="@+id/nIDConta"
                 android:layout_toEndOf="@+id/btnTransferencia"
                 android:layout_marginLeft="40px"
-                android:backgroundTint="#CDCDCD" />
+                android:backgroundTint="#CDCDCD"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textAlignment="center"
+                />
 
             <TextView
                 android:layout_width="wrap_content"

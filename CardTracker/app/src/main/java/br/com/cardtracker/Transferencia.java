@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 
 import java.util.List;
+import java.util.Random;
 
 import br.com.conductor.sdc.api.v1.CartaoApi;
 import br.com.conductor.sdc.api.v1.ContaApi;
@@ -48,7 +49,6 @@ public class Transferencia extends AppCompatActivity implements View.OnClickList
     public Cartao cartao3 = runAPI.getCartao3Infos();
     public Cartao cartao4 = runAPI.getCartao4Infos();
 
-    public int SMSCode = 5530928;
     public Double valor;
     public Long IDCartaoOrg;
     public Long IDContaOrg;
@@ -56,6 +56,8 @@ public class Transferencia extends AppCompatActivity implements View.OnClickList
     public Long IDContaVar;
     public Long IDCartaoVar;
     public String NomeCartaoVar;
+    public Long CODValidar;
+
     public List<Cartao> getAPIFromText1;
     public List<Cartao> getAPIFromText2;
 
@@ -85,16 +87,16 @@ public class Transferencia extends AppCompatActivity implements View.OnClickList
         nConta.setText(conta1.getNome());
         nID.setText(conta1.getId().toString());
 
-        System.out.println("TESTE "+conta2.getId()+"\n"+cartao3.getId());
         try {
             getAPIFromText1 = cartaoApi.getAllUsingGET(conta1.getId()); // Pegar todos os cartões da conta
             getAPIFromText2 = cartaoApi.getAllUsingGET(conta2.getId()); // Pegar todos os cartões da conta
             radioButtonCartao1.setText(cartao1.getNumero());
             radioButtonCartao2.setText(cartao2.getNumero());
-
         } catch (ApiException e) {
-            System.out.println("Deu pau em Cartoes "+e);
+            System.out.println("Erro em Cartoes "+e);
         }
+
+        System.out.println("conta 2: "+conta2.getId()+"\ncartao 3: "+cartao3.getId()+"\ncartao 4: "+cartao4.getId());
 
         btnTransferencia.setOnClickListener(this);
 
@@ -104,12 +106,17 @@ public class Transferencia extends AppCompatActivity implements View.OnClickList
     public void onClick(final View v) {
 
         AlertDialog.Builder dig = new AlertDialog.Builder(Transferencia.this);
+
+        //Gerador de Códigos
+        final Random numRandom = new Random();
+        CODValidar = numRandom.nextInt()& 0x00000000ffffffffL; //Unsigned Long
+
         //Tratamento dos campos
         try{
             valor = new Double(nValor.getText().toString());
         }catch (NumberFormatException n){
             dig.setTitle("Erro");
-            dig.setMessage("Preencha o valor da transferência");
+            dig.setMessage("\nPreencha o valor da transferência");
             dig.setPositiveButton("Voltar",null);
             dig.show();
         }
@@ -118,7 +125,7 @@ public class Transferencia extends AppCompatActivity implements View.OnClickList
             IDCartaoVar = new Long(nIDCartao.getText().toString());
         }catch (NumberFormatException n){
             dig.setTitle("Erro");
-            dig.setMessage("Preencha o ID do Cartão Destino");
+            dig.setMessage("\nPreencha o ID do Cartão Destino");
             dig.setPositiveButton("Voltar",null);
             dig.show();
         }
@@ -127,7 +134,14 @@ public class Transferencia extends AppCompatActivity implements View.OnClickList
             IDContaVar = new Long(nIDConta.getText().toString());
         }catch (NumberFormatException n){
             dig.setTitle("Erro");
-            dig.setMessage("Preencha o ID da Conta Destino");
+            dig.setMessage("\nPreencha o ID da Conta Destino");
+            dig.setPositiveButton("Voltar",null);
+            dig.show();
+        }
+
+        if (radioButtonCartao1.isChecked()==false && radioButtonCartao2.isChecked()==false) {
+            dig.setTitle("Erro");
+            dig.setMessage("\nSelecione um cartão");
             dig.setPositiveButton("Voltar",null);
             dig.show();
         }
@@ -155,6 +169,7 @@ public class Transferencia extends AppCompatActivity implements View.OnClickList
             dig.show();
         }
         */
+
         // Tratamento dos cartões selecionados
         if (radioButtonCartao1.isChecked()) {
             System.out.println("Button checkado");
@@ -167,7 +182,7 @@ public class Transferencia extends AppCompatActivity implements View.OnClickList
                     NomeCartaoVar = cartao3.getNome();
                     System.out.println("IDCartaoVar checkado");
                     dig.setTitle("Transferir");
-                    dig.setMessage("Para: " + NomeCartaoVar + "\nValor: R$" + valor);
+                    dig.setMessage("\nPara: " + NomeCartaoVar + "\nValor: R$" + valor);
                     dig.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -186,8 +201,9 @@ public class Transferencia extends AppCompatActivity implements View.OnClickList
                                     params.putLong("IDCartaoOrg",IDCartaoOrg);
                                     params.putLong("IDCartaoVar",IDCartaoVar);
                                     params.putString("NomeCartaoVar",NomeCartaoVar);
+                                    params.putLong("CODValidar",CODValidar);
 
-                                    Intent intent = new Intent(Transferencia.this,PopTransferencia.class);
+                                    Intent intent = new Intent(Transferencia.this,PopupTransferencia.class);
                                     intent.putExtras(params);
 
                                     startActivity(intent);//ou if result
@@ -195,7 +211,7 @@ public class Transferencia extends AppCompatActivity implements View.OnClickList
                             });
                             dig.show();
                             SmsManager smsManager = SmsManager.getDefault();
-                            smsManager.sendTextMessage("+5583999887734", null, "Código de Confirmação: 5530928", null, null);
+                            smsManager.sendTextMessage("+5583999887734", null, "Código de Confirmação: "+CODValidar, null, null);
                         }
                     }); // Fim do Positive Button 1
                     dig.setNegativeButton("Cancelar", null);
@@ -205,7 +221,7 @@ public class Transferencia extends AppCompatActivity implements View.OnClickList
                     NomeCartaoVar = cartao4.getNome();
                     System.out.println("IDCartaoVar checkado");
                     dig.setTitle("Transferir");
-                    dig.setMessage("Para: " + NomeCartaoVar + "\nValor: R$" + valor);
+                    dig.setMessage("\nPara: " + NomeCartaoVar + "\nValor: R$" + valor);
                     dig.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -224,8 +240,9 @@ public class Transferencia extends AppCompatActivity implements View.OnClickList
                                     params.putLong("IDCartaoOrg",IDCartaoOrg);
                                     params.putLong("IDCartaoVar",IDCartaoVar);
                                     params.putString("NomeCartaoVar",NomeCartaoVar);
+                                    params.putLong("CODValidar",CODValidar);
 
-                                    Intent intent = new Intent(Transferencia.this,PopTransferencia.class);
+                                    Intent intent = new Intent(Transferencia.this,PopupTransferencia.class);
                                     intent.putExtras(params);
 
                                     startActivity(intent);//ou if result
@@ -233,7 +250,7 @@ public class Transferencia extends AppCompatActivity implements View.OnClickList
                             });
                             dig.show();
                             SmsManager smsManager = SmsManager.getDefault();
-                            smsManager.sendTextMessage("+5583999887734", null, "Código de Confirmação: 5530928", null, null);
+                            smsManager.sendTextMessage("+5583999887734", null, "Código de Confirmação: "+CODValidar, null, null);
                         }
                     }); // Fim do Positive Button 1
                     dig.setNegativeButton("Cancelar", null);
@@ -252,7 +269,7 @@ public class Transferencia extends AppCompatActivity implements View.OnClickList
                     NomeCartaoVar = cartao3.getNome();
                     System.out.println("IDCartaoVar checkado");
                     dig.setTitle("Transferir");
-                    dig.setMessage("Para: " + NomeCartaoVar + "\nValor: R$" + valor);
+                    dig.setMessage("\nPara: " + NomeCartaoVar + "\nValor: R$" + valor);
                     dig.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -271,8 +288,9 @@ public class Transferencia extends AppCompatActivity implements View.OnClickList
                                     params.putLong("IDCartaoOrg",IDCartaoOrg);
                                     params.putLong("IDCartaoVar",IDCartaoVar);
                                     params.putString("NomeCartaoVar",NomeCartaoVar);
+                                    params.putLong("CODValidar",CODValidar);
 
-                                    Intent intent = new Intent(Transferencia.this,PopTransferencia.class);
+                                    Intent intent = new Intent(Transferencia.this,PopupTransferencia.class);
                                     intent.putExtras(params);
 
                                     startActivity(intent);//ou if result
@@ -280,7 +298,7 @@ public class Transferencia extends AppCompatActivity implements View.OnClickList
                             });
                             dig.show();
                             SmsManager smsManager = SmsManager.getDefault();
-                            smsManager.sendTextMessage("+5583999887734", null, "Código de Confirmação: 5530928", null, null);
+                            smsManager.sendTextMessage("+5583999887734", null, "Código de Confirmação: "+CODValidar, null, null);
                         }
                     }); // Fim do Positive Button 1
                     dig.setNegativeButton("Cancelar", null);
@@ -290,7 +308,7 @@ public class Transferencia extends AppCompatActivity implements View.OnClickList
                     NomeCartaoVar = cartao4.getNome();
                     System.out.println("IDCartaoVar checkado");
                     dig.setTitle("Transferir");
-                    dig.setMessage("Para: " + NomeCartaoVar + "\nValor: R$" + valor);
+                    dig.setMessage("\nPara: " + NomeCartaoVar + "\nValor: R$" + valor);
                     dig.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -309,8 +327,9 @@ public class Transferencia extends AppCompatActivity implements View.OnClickList
                                     params.putLong("IDCartaoOrg",IDCartaoOrg);
                                     params.putLong("IDCartaoVar",IDCartaoVar);
                                     params.putString("NomeCartaoVar",NomeCartaoVar);
+                                    params.putLong("CODValidar",CODValidar);
 
-                                    Intent intent = new Intent(Transferencia.this,PopTransferencia.class);
+                                    Intent intent = new Intent(Transferencia.this,PopupTransferencia.class);
                                     intent.putExtras(params);
 
                                     startActivity(intent);//ou if result
@@ -318,7 +337,7 @@ public class Transferencia extends AppCompatActivity implements View.OnClickList
                             });
                             dig.show();
                             SmsManager smsManager = SmsManager.getDefault();
-                            smsManager.sendTextMessage("+5583999887734", null, "Código de Confirmação: 5530928", null, null);
+                            smsManager.sendTextMessage("+5583999887734", null, "Código de Confirmação: "+CODValidar, null, null);
                         }
                     }); // Fim do Positive Button 1
                     dig.setNegativeButton("Cancelar", null);

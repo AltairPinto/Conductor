@@ -12,6 +12,7 @@
          location permissions for the 'MyLocation' functionality. 
     -->
     <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.READ_SMS"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -33,7 +34,9 @@
         <activity android:name=".Menu" />
         <activity android:name=".Contas" />
         <activity android:name=".Cartoes" />
-        <activity android:name=".PopTransferencia" android:theme="@style/AppTheme.CustomTheme"></activity>
+        <activity android:name=".PopupTransferencia" android:theme="@style/AppTheme.CustomTheme"></activity>
+        <activity android:name=".PopupCompra" android:theme="@style/AppTheme.CustomTheme"></activity>
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

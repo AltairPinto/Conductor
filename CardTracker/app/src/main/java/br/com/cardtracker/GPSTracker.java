@@ -20,28 +20,29 @@ import com.google.android.gms.location.LocationListener;
  * Created by altai on 22/07/2016.
  */
 public class GPSTracker extends Service implements LocationListener {
+
     private final Context mContext;
 
-    // flag para GPS status
+    // flag para o status do GPS
     boolean isGPSEnabled = false;
 
-    // flag para network status
+    // flag para o status da rede
     boolean isNetworkEnabled = false;
 
-    // flag para GPS status
+    // flag para o status do GPS
     boolean canGetLocation = false;
 
-    Location location; // location
+    Location location; // localização
     double latitude; // latitude
     double longitude; // longitude
 
-    // A distância mínima para mudar Atualizações em metros
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 0; // 10 metros
+    // A distância mínima, em metros, para mudar as atualizações
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
 
-    // O tempo mínimo entre as atualizações em milissegundos
-    private static final long MIN_TIME_BW_UPDATES = 0; // 1 minute=1000 * 60 * 1
+    // O tempo mínimo, em milissegundos, entre as atualizações
+    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; // 1 minute
 
-    // Declarar a Location Manager
+    // Declarando um Location Manager
     protected LocationManager locationManager;
 
     public GPSTracker(Context context) {
@@ -54,20 +55,30 @@ public class GPSTracker extends Service implements LocationListener {
             locationManager = (LocationManager) mContext
                     .getSystemService(LOCATION_SERVICE);
 
-            // obter o status GPS
+            // pegando o status do GPS
             isGPSEnabled = locationManager
                     .isProviderEnabled(LocationManager.GPS_PROVIDER);
 
-            // obter o status da rede
+            // pegando o status da rede
             isNetworkEnabled = locationManager
                     .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
             if (!isGPSEnabled && !isNetworkEnabled) {
-                //Nenhum provedor de rede está habilitado
+                // nenhum provedor de rede está habilitado
             } else {
                 this.canGetLocation = true;
-                // Primeiro localização obter de provedor de rede
+                // Primeira obtenção da localização pelo provedor de rede
                 if (isNetworkEnabled) {
+                    if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        //return TODO;
+                    }
                     locationManager.requestLocationUpdates(
                             LocationManager.NETWORK_PROVIDER,
                             MIN_TIME_BW_UPDATES,
@@ -82,7 +93,7 @@ public class GPSTracker extends Service implements LocationListener {
                         }
                     }
                 }
-                // if GPS Enabled get lat/long using GPS Services
+                // se GPS habilitado pega lat/long usando os serviços do GPS
                 if (isGPSEnabled) {
                     if (location == null) {
                         locationManager.requestLocationUpdates(
@@ -91,15 +102,6 @@ public class GPSTracker extends Service implements LocationListener {
                                 MIN_DISTANCE_CHANGE_FOR_UPDATES, (android.location.LocationListener) this);
                         Log.d("GPS Enabled", "GPS Enabled");
                         if (locationManager != null) {
-                            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                                // TODO: Consider calling
-                                //    ActivityCompat#requestPermissions
-                                // here to request the missing permissions, and then overriding
-                                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                                //                                          int[] grantResults)
-                                // to handle the case where the user grants the permission. See the documentation
-                                // for ActivityCompat#requestPermissions for more details.
-                            }
                             location = locationManager
                                     .getLastKnownLocation(LocationManager.GPS_PROVIDER);
                             if (location != null) {
@@ -114,15 +116,13 @@ public class GPSTracker extends Service implements LocationListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return location;
     }
 
-    //eric
 
     /**
-     * para de usar GPS listener
-     * Calling this function will stop using GPS in your app
+     * Para de usar o listener do GPS
+     * Chamando esse método o GPS vai parar em seu aplicativo
      * */
     public void stopUsingGPS() {
         if (locationManager != null) {
@@ -137,11 +137,11 @@ public class GPSTracker extends Service implements LocationListener {
                 return;
             }
             locationManager.removeUpdates((android.location.LocationListener) GPSTracker.this);
-        }
+            }
     }
 
     /**
-     * Function para obter latitude
+     * Método para obter a latitude
      * */
     public double getLatitude(){
         if(location != null){
@@ -153,7 +153,7 @@ public class GPSTracker extends Service implements LocationListener {
     }
 
     /**
-     * Function para obetr longitude
+     * Método para pegar a longitude
      * */
     public double getLongitude(){
         if(location != null){
@@ -165,7 +165,7 @@ public class GPSTracker extends Service implements LocationListener {
     }
 
     /**
-     * Função para verificar GPS / Wi-Fi habilitado
+     * Método para checar se o GPS/Wi-Fi está habilitado
      * @return boolean
      * */
     public boolean canGetLocation() {
@@ -173,48 +173,52 @@ public class GPSTracker extends Service implements LocationListener {
     }
 
     /**
-     * Function para abrir o alerta
+     * Método para mostrar as configurações me um AlertDialog
+     * Pressionando Configurações o botão vai mostrar Opções de Configuração
      * */
     public void showSettingsAlert(){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
 
-        // titulo da mensagem de config
-        alertDialog.setTitle("Configurar GPS");
+        // Definindo Dialog Title
+        alertDialog.setTitle("GPS is settings");
 
-        // mensagem de configuração
-        alertDialog.setMessage("GPS não Ativado. Você deseja abrir o menu de configuração?");
+        // Definindo Dialog Message
+        alertDialog.setMessage("GPS não está habilitado. Você deseja ir em configurações?");
 
-        // On pressing Settings button
-        alertDialog.setPositiveButton("Configuração", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
+        // Ao pressionar o botão Configurações
+        alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int which) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 mContext.startActivity(intent);
             }
         });
 
-        // btn cancelar
-        alertDialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+        // Ao pressionar o botão cancelar
+        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
             }
         });
 
-        // Exibir alerta de mensagem
+        // Mostrando Alert Message
         alertDialog.show();
     }
 
     @Override
     public void onLocationChanged(Location location) {
-        getLocation();
     }
+
     public void onProviderDisabled(String provider) {
     }
+
     public void onProviderEnabled(String provider) {
     }
+
     public void onStatusChanged(String provider, int status, Bundle extras) {
     }
-    @Override
+
     public IBinder onBind(Intent arg0) {
         return null;
     }
+
 }
