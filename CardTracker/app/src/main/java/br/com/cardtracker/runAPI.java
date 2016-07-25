@@ -1,11 +1,14 @@
 package br.com.cardtracker;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.conductor.sdc.api.v1.CartaoApi;
 import br.com.conductor.sdc.api.v1.ContaApi;
@@ -14,7 +17,7 @@ import br.com.conductor.sdc.api.v1.invoker.ApiInvoker;
 import br.com.conductor.sdc.api.v1.model.Cartao;
 import br.com.conductor.sdc.api.v1.model.Conta;
 
-public class runAPI extends AppCompatActivity {
+public class runAPI extends Activity {
 
     // Acesso API
     public String access_token = "3BJU7WSdxYVy";
@@ -33,6 +36,25 @@ public class runAPI extends AppCompatActivity {
     public static Cartao cartao3 = new Cartao();
     public static Cartao cartao4 = new Cartao();
 
+    // Atributos GPS
+    public static List<Double> latitudeListCompra = new ArrayList<Double>();
+    public static List<Double> longitudeListCompra = new ArrayList<Double>();
+    public static List<Double> latitudeListTransferencia = new ArrayList<Double>();
+    public static List<Double> longitudeListTransferencia = new ArrayList<Double>();
+    public static double latitude;
+    public static double longitude;
+
+    // Atributos Operação
+    public static double valor;
+    public static String destino;
+    public static String nomeCartao;
+    public static String nomeCartaoDestino;
+    public static Long IDCartaoDestino;
+    public static Long IDCartaoOrigem;
+    public static String numeroCartao;
+    public static List<String> operacaoCompra = new ArrayList<String>();
+    public static List<String> operacaoTransferencia = new ArrayList<String>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,9 +66,9 @@ public class runAPI extends AppCompatActivity {
         } //Thread não dar conflito
 
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.SEND_SMS},1);
-        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_NETWORK_STATE},1);
+        //ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_NETWORK_STATE},1);
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
-        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},1);
+        //ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},1);
 
         try {
             runAPI(cartaoApi,contaApi,conta1,cartao1,cartao2,conta2,cartao3,cartao4,access_token,client_id,BASE_PATH);
@@ -163,4 +185,45 @@ public class runAPI extends AppCompatActivity {
     public void setConta2Info(Conta conta2){this.conta2 = conta2;}
     public void setCartao3Info(Cartao cartao3){this.cartao3 = cartao3;}
     public void setCartao4Info(Cartao cartao4){this.cartao4 = cartao4;}
+
+    // Get e Set para GPS
+
+    public double getLatitude(){return latitude;}
+    public double getLongitude(){return longitude;}
+
+    public List getLatitudeListCompra(){return latitudeListCompra;}
+    public List getLongitudeListCompra(){return longitudeListCompra;}
+    public List getOperacaoCompra(){return operacaoCompra;}
+    public List getOperacaoTransferencia(){return operacaoTransferencia;}
+
+    public List getLatitudeListTransferencia(){return latitudeListTransferencia;}
+    public List getLongitudeListTransferencia(){return longitudeListTransferencia;}
+
+    public void setLocalCompra(double latitude, double longitude){this.latitude = latitude; this.longitude=longitude;
+        latitudeListCompra.add(latitude);longitudeListCompra.add(longitude);}
+    public void setLocalTransferencia(double latitude, double longitude){this.latitude = latitude; this.longitude=longitude;
+        latitudeListTransferencia.add(latitude);longitudeListTransferencia.add(longitude);}
+
+    // Get e Set para Dados da Operação Compra
+    public String getDestino(){return destino;}
+    public double getValor(){return valor;}
+    public String getNomeCartao(){return nomeCartao;}
+    public String getNumeroCartao(){return numeroCartao;}
+    public void setOperacaoCompra(String destino, double valor, String nomeCartao, Long IDCartaoOrigem){
+        this.destino = destino; this.valor = valor; this.nomeCartao = nomeCartao; this.IDCartaoOrigem = IDCartaoOrigem;
+        operacaoCompra.add("Destino: "+destino+" | Nome do Cartão: "+nomeCartao+" | ID: "+IDCartaoOrigem+" | Valor: R$"+valor);
+    }
+
+    // Get e Set para Dados da Operação Transferência
+    public String getNomeCartaoDestino(){return nomeCartaoDestino;}
+    public Long getIDCartaoOrigem(){return IDCartaoOrigem;}
+    public Long getIDCartaoDestino(){return IDCartaoDestino;}
+    public void setOperacaoTransferencia(String nomeCartao, Long IDCartaoOrigem,
+                                         String nomeCartaoDestino, Long IDCartaoDestino, Double valor){
+        this.nomeCartao = nomeCartao; this.IDCartaoOrigem = IDCartaoOrigem; this.nomeCartaoDestino = nomeCartaoDestino;
+        this.IDCartaoDestino = IDCartaoDestino; this.valor = valor;
+        operacaoTransferencia.add("Nome do Cartão de Origem: "+nomeCartao+" | ID: "+IDCartaoOrigem+" | Nome do Cartão de Destino: "
+        +nomeCartaoDestino+" | ID: "+IDCartaoDestino+" | Valor: R$"+valor);
+    }
+
 }

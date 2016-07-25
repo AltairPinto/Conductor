@@ -86,16 +86,6 @@ public class Compra extends AppCompatActivity implements View.OnClickListener {
         }
 
         btnComprar.setOnClickListener(this);
-        // Limite dos Cartões NÃO APAGAR!!!!
-        /*try {
-            Limites.setText("Cartão ID "+cartao1.getId()+" : "+cartaoApi.limiteUsingGET(conta1.getId(), cartao1.getId())+
-                    "\nCartão ID "+cartao2.getId()+" : "+cartaoApi.limiteUsingGET(conta1.getId(), cartao2.getId()));
-            Limite limite = (cartaoApi.limiteUsingGET(conta1.getId(), cartao1.getId()));
-            System.out.println(limite.getValor()); //FUNCIONOU
-        } catch (ApiException e) {
-            Limites.setText("Algum dos cartões está bloqueado. Para verificar apenas o Limite de um cartão, vá até a aba 'Cartões' - " + e);
-        }*/
-
 
     }
 
@@ -112,7 +102,7 @@ public class Compra extends AppCompatActivity implements View.OnClickListener {
             valor = new Double(nValor.getText().toString());
         }catch (NumberFormatException n){
             dig.setTitle("Erro");
-            dig.setMessage("\nPreencha o valor da transferência");
+            dig.setMessage("\nPreencha o valor da compra");
             dig.setPositiveButton("Voltar",null);
             dig.show();
         }

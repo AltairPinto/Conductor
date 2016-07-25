@@ -117,7 +117,7 @@
     <string name="nConta" />
     <string name="nNome" />
     <string name="btnCartoes">Cartões</string>
-    <string name="btnConta">Conta</string>
+    <string name="btnConta">Infos</string>
     <string name="btnAlterarConta">Alterar Conta</string>
     <string name="btnDeletarConta">Deletar Conta</string>
     <string name="nContaNovo" />

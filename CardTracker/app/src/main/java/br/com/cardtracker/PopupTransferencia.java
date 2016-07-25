@@ -1,11 +1,16 @@
 package br.com.cardtracker;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -51,7 +56,13 @@ public class PopupTransferencia extends Activity implements View.OnClickListener
     public Long CODValidar;
     public String destino;
 
-    public int getIntFromText;
+    public Long getLongFromText;
+
+    //GPS
+    private Location location;
+    private LocationManager locationManager;
+    double latitude;
+    double longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +109,7 @@ public class PopupTransferencia extends Activity implements View.OnClickListener
             public void onClick(View v) {
                 AlertDialog.Builder dig = new AlertDialog.Builder(PopupTransferencia.this);
                 try {
-                    getIntFromText = new Integer(editText.getText().toString());
+                    getLongFromText = new Long(editText.getText().toString());
                 } catch (NumberFormatException ene) {
                     dig.setTitle("Código inválido");
                     dig.setMessage("\nPreencha o campo em branco");
@@ -106,18 +117,20 @@ public class PopupTransferencia extends Activity implements View.OnClickListener
                     dig.show();
                 }
 
-                //Tratamento para Tela de Transferência
-                if (getIntFromText == CODValidar) {
+                //Tratamento para código
+                if (CODValidar.equals(getLongFromText)) {
                     //Validado
                     // Efetuando a transferência
                     try {
                         System.out.println("Verificado");
                         cartaoApi.transferirUsingPOST(IDContaOrg, IDCartaoOrg, IDCartaoVar, valor);
-                        dig.setTitle("Transferido");
+                        dig.setTitle("Informações");
+                        gpsSetLocal(); //Captura a localização
                         // Impressão de informações da Transferência
-                        dig.setMessage("\nDe: " + NomeCartaoOrg + " | Cartão ID: " + IDCartaoOrg +
+                        dig.setMessage("De: " + NomeCartaoOrg + " | Cartão ID: " + IDCartaoOrg +
                                 "\nPara: " + NomeCartaoVar + " | Cartão ID: " + IDCartaoVar +
-                                "\nValor: R$" + valor);
+                                "\nValor: R$" + valor+
+                                "\nLatitude: "+latitude+" Longitude: "+longitude);
                         dig.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -179,5 +192,21 @@ public class PopupTransferencia extends Activity implements View.OnClickListener
                 });//Fim positive
             dig.setNegativeButton("Não", null);
             dig.show();
+    }
+
+    private void gpsSetLocal() {
+        if(ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED){
+
+        }else{
+            locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        }
+        latitude = location.getLatitude();
+        longitude = location.getLongitude();
+        System.out.println("Latitude Transferência: "+latitude);
+        System.out.println("Longitude Transferência: "+longitude);
+        runAPI.setLocalTransferencia(latitude,longitude);
+        runAPI.setOperacaoTransferencia(NomeCartaoOrg,IDCartaoOrg,NomeCartaoVar,IDCartaoVar,valor);
     }
 }

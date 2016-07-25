@@ -23,8 +23,8 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
     private ImageButton btnConta;
     private ImageButton btnCompra;
     private ImageButton btnCartoes;
-    private ImageButton btnDesbloqueio;
     private ImageButton btnTransferencia;
+    private ImageButton btnSair;
 
 
     // Acesso API
@@ -50,7 +50,7 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
         btnConta = (ImageButton) findViewById(R.id.btnConta);
         btnCompra = (ImageButton) findViewById(R.id.btnCompra);
         btnCartoes = (ImageButton) findViewById(R.id.btnCartoes);
-        btnDesbloqueio = (ImageButton) findViewById(R.id.btnDesbloqueio);
+        btnSair = (ImageButton) findViewById(R.id.btnSair);
         btnTransferencia = (ImageButton) findViewById(R.id.btnTransferencia);
 
         System.out.println("Conta Nome no Menu: "+conta1.getNome());
@@ -66,13 +66,13 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
             public void onClick(View v) {
 
                 AlertDialog.Builder dig1 = new AlertDialog.Builder(Menu.this);
-                Intent it1 = new Intent(Menu.this, Contas.class);
-                dig1.setMessage("Consultando Contas...");
+                Intent it1 = new Intent(Menu.this, Infos.class);
+                dig1.setMessage("Consultando Informações...");
                 dig1.show();
                 startActivity(it1);
 
             }
-        }); // Fim de Contas
+        }); // Fim de Infos
 
         btnCompra.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,16 +109,19 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
             }
         }); // Fim de Transferência
 
-        btnDesbloqueio.setOnClickListener(new View.OnClickListener() {
+        btnSair.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder dig = new AlertDialog.Builder(Menu.this);
-                Intent its = new Intent(Menu.this, Desbloqueio.class);
-                dig.setMessage("Carregando Desbloqueio...");
+                dig.setMessage("Exit...");
                 dig.show();
-                startActivity(its);
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
-        }); // Fim de Desbloqueio
+        });
+
     }
 
     @Override

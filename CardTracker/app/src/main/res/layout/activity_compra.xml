@@ -185,16 +185,16 @@
                 android:ems="10"
                 android:id="@+id/nValor"
                 android:textColorHighlight="@color/colorPrimaryDark"
-                android:textColor="#CDCDCD"
+                android:textColor="#FFFFFF"
                 android:backgroundTint="#CDCDCD"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_marginLeft="50px"
                 android:layout_below="@+id/textView12"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="R$"
                 android:id="@+id/textView14"
                 android:textColorHighlight="@color/colorPrimaryDark"
@@ -217,7 +217,7 @@
             <EditText
                 android:layout_width="420px"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:inputType="textPersonName"
                 android:text=""
                 android:ems="10"
@@ -225,9 +225,8 @@
                 android:layout_alignTop="@+id/nValor"
                 android:layout_alignStart="@+id/textView16"
                 android:textColorHighlight="@color/colorPrimaryDark"
-                android:textColor="#CDCDCD"
-                android:backgroundTint="#CDCDCD"
-                android:layout_marginTop="10px"/>
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#CDCDCD"/>
 
         </RelativeLayout>
     </ScrollView>

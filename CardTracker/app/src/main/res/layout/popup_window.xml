@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg">
+    android:background="@drawable/bgpop">
 
     <TextView
         android:layout_width="wrap_content"
@@ -42,6 +42,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAlignment="center"
         android:inputType="number"
         android:ems="1"
         android:id="@+id/editText"
@@ -49,6 +50,6 @@
         android:layout_alignStart="@+id/btnOk"
         android:layout_marginTop="40px"
         android:layout_alignEnd="@+id/btnCancelar"
-        android:textColor="#CDCDCD"
-        android:backgroundTint="#CDCDCD" />
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#FFFFFF" />
 </RelativeLayout>

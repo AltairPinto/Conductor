@@ -114,7 +114,6 @@
         android:inputType="numberPassword"
         android:ems="10"
         android:id="@+id/password"
-        android:text="40028922"
         android:layout_below="@+id/textView5"
         android:layout_alignParentStart="true"
         android:textColor="#D3D3D3"

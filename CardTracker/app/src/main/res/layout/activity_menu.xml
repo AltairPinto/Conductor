@@ -80,16 +80,16 @@
 
 
         <ImageButton
-            android:layout_width="180px"
-            android:layout_height="200px"
+            android:layout_width="160px"
+            android:layout_height="180px"
             android:id="@+id/btnLocal"
             android:background="@drawable/local"
-            android:layout_marginLeft="20px"
+            android:layout_marginLeft="30px"
             android:layout_marginTop="100px"
             />
 
         <TextView
-            android:layout_width="180px"
+            android:layout_width="160px"
             android:layout_height="60px"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textAlignment="center"
@@ -98,22 +98,22 @@
             android:textColorHighlight="@color/colorPrimaryDark"
             android:textColor="@color/common_google_signin_btn_text_dark"
             android:layout_alignTop="@+id/btnLocal"
-            android:layout_marginLeft="20px"
-            android:layout_marginTop="150px"
+            android:layout_marginLeft="30px"
+            android:layout_marginTop="140px"
             android:background="@drawable/icon"
          />
 
     <ImageButton
-    android:layout_width="180px"
-    android:layout_height="200px"
+    android:layout_width="160px"
+    android:layout_height="180px"
     android:id="@+id/btnCompra"
     android:background="@drawable/compra"
         android:layout_alignTop="@+id/Local"
-        android:layout_marginLeft="20px"
+        android:layout_marginLeft="30px"
         android:layout_marginTop="180px" />
 
         <TextView
-            android:layout_width="180px"
+            android:layout_width="160px"
             android:layout_height="60px"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textAlignment="center"
@@ -122,39 +122,39 @@
             android:textColorHighlight="@color/colorPrimaryDark"
             android:textColor="@color/common_google_signin_btn_text_dark"
             android:layout_alignTop="@+id/btnCompra"
-            android:layout_marginLeft="20px"
-            android:layout_marginTop="150px"
+            android:layout_marginLeft="30px"
+            android:layout_marginTop="140px"
             android:background="@drawable/icon"
             />
 
         <ImageButton
-            android:layout_width="180px"
-            android:layout_height="200px"
-            android:id="@+id/btnDesbloqueio"
-            android:background="@drawable/lock"
+            android:layout_width="160px"
+            android:layout_height="180px"
+            android:id="@+id/btnSair"
+            android:background="@drawable/sair"
             android:layout_alignTop="@+id/Cartoes"
             android:layout_alignLeft="@+id/btnTransferencia"
             android:layout_marginLeft="220px"
             android:layout_marginTop="180px" />
     <TextView
-        android:layout_width="180px"
+        android:layout_width="160px"
         android:layout_height="60px"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textAlignment="center"
-        android:text="Desbloq."
-        android:id="@+id/Desbloqueio"
+        android:text="Sair"
+        android:id="@+id/Sair"
         android:textColorHighlight="@color/colorPrimaryDark"
         android:textColor="@color/common_google_signin_btn_text_dark"
-        android:layout_alignTop="@+id/btnDesbloqueio"
+        android:layout_alignTop="@+id/btnSair"
         android:layout_alignLeft="@+id/Transferencia"
         android:layout_marginLeft="220px"
-        android:layout_marginTop="150px"
+        android:layout_marginTop="140px"
         android:background="@drawable/icon" />
 
 
     <ImageButton
-        android:layout_width="180px"
-        android:layout_height="200px"
+        android:layout_width="160px"
+        android:layout_height="180px"
         android:id="@+id/btnCartoes"
         android:background="@drawable/cartao"
         android:layout_alignLeft="@+id/btnConta"
@@ -162,7 +162,7 @@
         android:layout_marginTop="100px" />
 
     <TextView
-        android:layout_width="180px"
+        android:layout_width="160px"
         android:layout_height="60px"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textAlignment="center"
@@ -173,12 +173,12 @@
         android:layout_alignTop="@+id/btnCartoes"
         android:layout_alignLeft="@+id/btnConta"
         android:layout_marginLeft="220px"
-        android:layout_marginTop="150px"
+        android:layout_marginTop="140px"
         android:background="@drawable/icon"/>
 
         <ImageButton
-            android:layout_width="180px"
-            android:layout_height="200px"
+            android:layout_width="160px"
+            android:layout_height="180px"
             android:id="@+id/btnTransferencia"
             android:background="@drawable/transferencia"
             android:layout_alignTop="@+id/Conta"
@@ -187,7 +187,7 @@
             android:layout_marginTop="180px" />
 
         <TextView
-            android:layout_width="180px"
+            android:layout_width="160px"
             android:layout_height="60px"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textAlignment="center"
@@ -198,12 +198,12 @@
             android:layout_alignTop="@+id/btnTransferencia"
             android:layout_alignLeft="@+id/btnCompra"
             android:layout_marginLeft="220px"
-            android:layout_marginTop="150px"
+            android:layout_marginTop="140px"
             android:background="@drawable/icon"/>
 
     <ImageButton
-    android:layout_width="180px"
-    android:layout_height="200px"
+    android:layout_width="160px"
+    android:layout_height="180px"
     android:id="@+id/btnConta"
         android:layout_alignLeft="@+id/btnLocal"
         android:layout_marginLeft="220px"
@@ -212,7 +212,7 @@
         />
 
     <TextView
-        android:layout_width="180px"
+        android:layout_width="160px"
         android:layout_height="60px"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textAlignment="center"
@@ -223,7 +223,7 @@
         android:layout_alignTop="@+id/btnConta"
         android:layout_alignLeft="@+id/btnLocal"
         android:layout_marginLeft="220px"
-        android:layout_marginTop="150px"
+        android:layout_marginTop="140px"
         android:background="@drawable/icon"
          />
 
@@ -235,7 +235,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Opções"
+        android:text="Menu"
         android:id="@+id/textView6"
         android:layout_alignTop="@+id/nConta"
         android:layout_marginTop="120px"

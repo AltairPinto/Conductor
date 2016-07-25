@@ -1,11 +1,17 @@
 package br.com.cardtracker;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -44,7 +50,13 @@ public class PopupCompra extends Activity implements View.OnClickListener{
     public Long CODValidar;
     public String destino;
 
-    public int getIntFromText;
+    public Long getLongFromText;
+
+    //GPS
+    private Location location;
+    private LocationManager locationManager;
+    public double latitude;
+    public double longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +93,7 @@ public class PopupCompra extends Activity implements View.OnClickListener{
                 NomeCartaoOrg = params.getString("NomeCartaoOrg");
                 CODValidar = params.getLong("CODValidar");
                 destino = params.getString("destino");
+                System.out.println("COD Validar intent: "+CODValidar);
             }} // Fim do Intent
 
         btnOk.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +101,7 @@ public class PopupCompra extends Activity implements View.OnClickListener{
             public void onClick(View v) {
                 AlertDialog.Builder dig = new AlertDialog.Builder(PopupCompra.this);
                 try {
-                    getIntFromText = new Integer(editText.getText().toString());
+                    getLongFromText = new Long(editText.getText().toString());
                 } catch (NumberFormatException ene) {
                     dig.setTitle("Código inválido");
                     dig.setMessage("\nPreencha o campo em branco");
@@ -97,31 +110,21 @@ public class PopupCompra extends Activity implements View.OnClickListener{
                 }
 
                 //Tratamento para Tela de Compra
-                if (getIntFromText == CODValidar) {
+                if (CODValidar.equals(getLongFromText)) {
                         //Validado
                         // Efetuando a Compra
                         try {
                             System.out.println("Verificado");
                             cartaoApi.transacionarUsingPUT(IDContaOrg, IDCartaoOrg, valor);
-                            dig.setTitle("Compra");
+                            dig.setTitle("Informações");
+                            gpsSetLocal();
                             // Impressão de informações da Compra
                             dig.setMessage("\nDe: " + NomeCartaoOrg + " | Cartão ID: " + IDCartaoOrg +
-                                    "\nDestino: " + destino +"\nValor: R$" + valor);
+                                    "\nDestino: " + destino +"\nValor: R$" + valor +
+                                    "\nLatitude: "+ latitude +"\nLongitude: "+ longitude);
                             dig.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                   GPSTracker gps = new GPSTracker(PopupCompra.this);
-
-// checa se o GPS está habilitado
-                                    if(gps.canGetLocation()){
-                                        double latitude = gps.getLatitude();
-                                        double longitude = gps.getLongitude();
-                                    }else{
-// não pôde pegar a localização
-// GPS ou a Rede não está habilitada
-// Pergunta ao usuário para habilitar GPS/Rede em configurações
-                                        gps.showSettingsAlert();
-                                    }
                                     finish();
                                 }
                             });
@@ -141,7 +144,7 @@ public class PopupCompra extends Activity implements View.OnClickListener{
                     } else {
                         dig.setTitle("Erro");
                         dig.setMessage("\nCódigo inválido");
-                        dig.setNegativeButton("Voltar", new DialogInterface.OnClickListener() {
+                        dig.setNegativeButton("Voltar",new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 editText.setText(null);
@@ -153,6 +156,22 @@ public class PopupCompra extends Activity implements View.OnClickListener{
         }); // Fim
 
         btnCancelar.setOnClickListener(this);
+    }
+
+    private void gpsSetLocal() {
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED){
+
+        }else{
+            locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        }
+        latitude = location.getLatitude();
+        longitude = location.getLongitude();
+        System.out.println("Latitude Compra: "+latitude);
+        System.out.println("Longitude Compra: "+longitude);
+        runAPI.setLocalCompra(latitude,longitude);
+        runAPI.setOperacaoCompra(destino,valor,NomeCartaoOrg,IDCartaoOrg);
     }
 
 

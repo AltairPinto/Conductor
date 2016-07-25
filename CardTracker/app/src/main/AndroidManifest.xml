@@ -11,8 +11,8 @@
          Google Maps Android API v2, but you must specify either coarse or fine
          location permissions for the 'MyLocation' functionality. 
     -->
-    <uses-permission android:name="android.permission.SEND_SMS"/>
-    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -32,10 +32,17 @@
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".Menu" />
-        <activity android:name=".Contas" />
+        <activity android:name=".Infos" />
         <activity android:name=".Cartoes" />
-        <activity android:name=".PopupTransferencia" android:theme="@style/AppTheme.CustomTheme"></activity>
-        <activity android:name=".PopupCompra" android:theme="@style/AppTheme.CustomTheme"></activity>
+        <activity
+            android:name=".PopupTransferencia"
+            android:theme="@style/AppTheme.CustomTheme" />
+        <activity
+            android:name=".PopupCompra"
+            android:theme="@style/AppTheme.CustomTheme" />
+        <activity
+            android:name=".PopupInfos"
+            android:theme="@style/AppTheme.CustomTheme" />
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -48,6 +55,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAYjAKTCBLmGcZ4Mv2EufQtqUpE5aSiWqQ" />
+
         <uses-library android:name="com.google.android.maps" />
 
         <activity
@@ -55,7 +63,6 @@
             android:label="@string/title_activity_local" />
         <activity android:name=".Compra" />
         <activity android:name=".Transferencia" />
-        <activity android:name=".Desbloqueio"></activity>
     </application>
 
 </manifest>

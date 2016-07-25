@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@drawable/bg"
-    tools:context=".Cartoes">
+    tools:context=".Infos">
 
     <TextView
         android:layout_width="wrap_content"
@@ -70,7 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Cartões"
+        android:text="Informações"
         android:id="@+id/textView17"
         android:textColorHighlight="@color/colorPrimaryDark"
         android:textColor="@color/common_google_signin_btn_text_dark"
@@ -80,7 +80,7 @@
 
     <!--Scroll para as duas Áreas-->
 
-            <!--Scroll para os cartões-->
+    <!--Scroll para os cartões-->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="750px"
@@ -109,41 +109,21 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="40px"/>
 
+
+
             <Button
-                android:id="@+id/btnBloquearCartao"
+                android:id="@+id/btnConsultar"
                 android:layout_width="wrap_content"
                 android:layout_height="70px"
-                android:text="Bloquear"
+                android:text="Consultar"
                 android:background="@drawable/screen_border"
                 android:textColorHighlight="@color/colorPrimaryDark"
                 android:textColor="#CDCDCD"
-                android:layout_marginLeft="50px"
                 android:layout_marginTop="600px"
-                android:layout_alignParentStart="true" />
+                android:layout_marginLeft="280px"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/radioGroup"/>
 
-            <Button
-                android:id="@+id/btnDesbloquearCartao"
-                android:layout_width="wrap_content"
-                android:layout_height="70px"
-                android:text="Desbloquear"
-                android:background="@drawable/screen_border"
-                android:textColorHighlight="@color/colorPrimaryDark"
-                android:textColor="#CDCDCD"
-                android:layout_marginLeft="250px"
-                android:layout_alignTop="@+id/btnCancelarCartao" />
-
-            <Button
-                android:id="@+id/btnCancelarCartao"
-                android:layout_width="wrap_content"
-                android:layout_height="70px"
-                android:text="Cancelar"
-                android:background="@drawable/screen_border"
-                android:textColorHighlight="@color/colorPrimaryDark"
-                android:textColor="#CDCDCD"
-                android:layout_alignBottom="@+id/btnBloquearCartao"
-                android:layout_alignLeft="@+id/btnDesbloquearCartao"
-                android:layout_marginLeft="210px"
-                android:layout_marginTop="40px"/>
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -164,7 +144,7 @@
                     android:textColorHighlight="@color/colorPrimaryDark"
                     android:layout_marginTop="20px"
                     android:textColor="@color/common_google_signin_btn_text_dark"
-                    android:buttonTint="#CDCDCD" />
+                    android:buttonTint="#CDCDCD"/>
 
                 <RadioButton
                     android:layout_width="wrap_content"
@@ -182,7 +162,7 @@
             </RadioGroup>
 
         </RelativeLayout>
-                </ScrollView>
+    </ScrollView>
 
 
 
